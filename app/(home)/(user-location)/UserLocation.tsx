@@ -50,7 +50,6 @@ export default function UserLocation() {
             })
             .catch((error) => {
               setLoading(false)
-              console.log(error)
             })
         },
         (error) => {

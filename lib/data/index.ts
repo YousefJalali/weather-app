@@ -60,7 +60,7 @@ export async function getCityFromClient(city: string) {
   })
 
   if (!res.ok) {
-    console.log('[getCityFromClient]:', res)
+    // console.log('[getCityFromClient]:', res)
     if (res.status === 404) {
       return undefined
     }
