@@ -1,0 +1,38 @@
+.container {
+  margin-top: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container img {
+  height: auto;
+  width: auto;
+}
+
+.message {
+  margin: var(--space-4) 0;
+}
+
+.message span {
+  display: block;
+  text-align: center;
+  color: var(--content-subtle);
+}
+
+.message span:first-child {
+  font-size: var(--text-xl);
+  font-weight: bold;
+  color: var(--content-contrast);
+  line-height: 1.5;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  background-color: var(--brand-primary);
+  padding: var(--space-2) var(--space-3);
+  color: var(--layout-level0);
+  border-radius: 8px;
+}

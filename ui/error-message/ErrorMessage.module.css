@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: var(--space-6);
+}
+
+.container img {
+  width: 50%;
+  height: 100%;
+}
+
+.message {
+  margin: var(--space-4) 0;
+}
+
+.message span {
+  display: block;
+  text-align: center;
+  color: var(--content-subtle);
+}
+
+.message span:first-child {
+  font-size: var(--text-xl);
+  font-weight: bold;
+  color: var(--content-contrast);
+  line-height: 1.5;
+}

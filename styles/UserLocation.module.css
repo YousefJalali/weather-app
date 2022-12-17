@@ -1,0 +1,47 @@
+.container {
+  height: 196.45px;
+}
+
+.container,
+.request_location {
+  margin-bottom: var(--space-4);
+}
+
+.placeholder {
+  border: 1px solid red;
+}
+
+.request_location {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  gap: var(--space-4);
+  border: 1px solid var(--layout-level0accent);
+  border-radius: 12px;
+  padding: var(--space-3);
+}
+
+.request_location .illustration {
+  width: 15%;
+}
+
+.request_location .illustration svg {
+  height: 100%;
+  width: 100%;
+  fill: var(--brand-primary);
+}
+
+.request_location .description span {
+  display: block;
+  color: var(--content-nonessential);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+}
+
+.request_location .description span:first-child {
+  font-size: var(--text-l);
+  color: var(--content-contrast);
+  margin-bottom: var(--space-1);
+  font-weight: bold;
+}

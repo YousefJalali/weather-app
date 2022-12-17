@@ -1,0 +1,128 @@
+.container {
+  position: relative;
+}
+
+.header {
+  font-size: var(--text-3xl);
+  margin-bottom: var(--space-3);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: var(--space-6);
+}
+
+.title {
+  display: flex;
+  margin-top: var(--space-4);
+  align-items: center;
+  justify-content: center;
+}
+
+/* .title > * {
+  line-height: 1.5;
+} */
+
+.title > h1 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* .title > span {
+  font-size: var(--text-2xl);
+} */
+
+.temp {
+  display: flex;
+  font-size: var(--text-3xl);
+  margin-top: var(--space-3);
+  font-weight: bold;
+}
+
+.temp > span:first-child {
+  font-size: 74px;
+  line-height: 1;
+}
+
+.description {
+  font-size: large;
+  color: var(--content-subtle);
+  margin-top: var(--space-3);
+  display: block;
+  text-transform: capitalize;
+}
+
+/* weather */
+.weather {
+  margin-top: var(--space-4);
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  /* justify-content: space-around;
+  background-color: var(--layout-level2);
+  padding: var(--space-3) var(--space-2);
+  border-radius: 12px;
+  margin-top: var(--space-4); */
+}
+
+.weather_item {
+  display: flex;
+  flex-direction: column;
+
+  flex: 0 0 calc(50% - (12px / 2));
+  background-color: var(--layout-level2);
+  padding: var(--space-3);
+  border-radius: 12px;
+}
+
+.weather_item > div {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+
+  font-size: var(--text-sm);
+  color: var(--content-subtle);
+  margin-bottom: var(--space-2);
+}
+
+.weather_item > div > span:not(:first-child) {
+  text-transform: uppercase;
+}
+
+.weather_item > span {
+  font-size: var(--text-3xl);
+  font-weight: 400;
+}
+
+.button {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-2);
+  background-color: var(--layout-level2);
+  color: var(--content-contrast);
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.added {
+  background-color: var(--brand-primary);
+  color: var(--layout-level0);
+}
+
+.skeleton {
+  margin-top: calc(48px + 33.63px);
+}
