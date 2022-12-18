@@ -59,8 +59,6 @@ export default function UserLocation() {
     }
   }, [geolocationState])
 
-  console.log({ userCity })
-
   return loading ? (
     <section className={styles.container}>
       <CardSkeleton current />

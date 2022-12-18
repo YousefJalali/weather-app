@@ -15,7 +15,7 @@ export function Card({
   return (
     <div
       className={styles.card}
-      style={{ height: current || popular ? 172 + 24.45 : 172 }}
+      style={{ height: current || popular ? 177.7 + 24.45 : 177.7 }}
     >
       {current && (
         <div className={styles.current}>

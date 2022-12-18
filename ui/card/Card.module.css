@@ -3,7 +3,7 @@
   background-color: var(--layout-level1);
   border: 1px solid var(--layout-level0accent);
   padding: var(--space-3);
-  height: 164px;
+  /* height: 164px; */
 }
 
 .current {
@@ -29,6 +29,7 @@
 }
 
 .temp {
+  line-height: 1;
   display: flex;
   font-size: var(--text-3xl);
 }
@@ -39,7 +40,6 @@
 
 .title,
 .temp {
-  line-height: 1;
   font-weight: bold;
 }
 
