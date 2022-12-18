@@ -26,7 +26,7 @@ export default async function Page() {
     <>
       {/* <Loading /> */}
       {/* {geolocation && JSON.parse(geolocation.value) === 'granted' ? ( */}
-      <UserLocation />
+      {/* <UserLocation /> */}
 
       <section>
         <ul className={listStyles.list}>
