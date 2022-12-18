@@ -32,3 +32,13 @@
   transform: translateY(-50%);
   left: var(--space-2);
 }
+
+@media (pointer: coarse) {
+  .search span {
+    display: none;
+  }
+
+  .search input {
+    padding-left: var(--space-3);
+  }
+}
