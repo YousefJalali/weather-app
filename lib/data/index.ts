@@ -9,6 +9,11 @@ export async function getCity(city: string) {
     { next: { revalidate: 60 } }
   )
 
+  console.log(
+    'url check: ',
+    `${baseUrl}/data/2.5/weather?${city}&appid=${process.env.WEATHER_KEY}&units=metric&lang=en`
+  )
+
   if (!res.ok) {
     if (res.status === 404) {
       //try to fetch by coords
