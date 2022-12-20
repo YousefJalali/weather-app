@@ -16,6 +16,7 @@ export default function SearchField() {
   const [suggestions, setSuggestions] = useState<SearchRecordType>([])
 
   const changeHandler = async (e: ChangeEvent<HTMLInputElement>) => {
+    setLoading(true)
     setQuery(e.target.value)
 
     debouncedSearch(e.target.value)
@@ -26,6 +27,11 @@ export default function SearchField() {
   }
 
   const fetchData = async (q: string) => {
+    if (q.length <= 0) {
+      setLoading(false)
+      return []
+    }
+
     const res = await getSuggestions(q)
     setLoading(false)
 
@@ -35,7 +41,7 @@ export default function SearchField() {
   const debouncedSearch = useRef(
     debounce(async (q) => {
       setSuggestions(await fetchData(q))
-    }, 300)
+    }, 500)
   ).current
 
   useEffect(() => {
