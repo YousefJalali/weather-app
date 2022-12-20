@@ -4,7 +4,7 @@ import listStyles from '@/styles/List.module.css'
 
 export default function SearchSkeleton() {
   return (
-    <ul className={`${listStyles.list} `}>
+    <ul className={listStyles.list} data-test='search-loading'>
       {new Array(10).fill(0).map((e, i) => (
         <li key={i} className={styles.search_item}>
           <a>

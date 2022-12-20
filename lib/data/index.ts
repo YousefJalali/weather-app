@@ -1,3 +1,5 @@
+import { SearchRecordType, SearchType } from '@/types/SearchType'
+
 const baseUrl = 'https://api.openweathermap.org'
 
 export async function getCity(city: string) {
@@ -42,16 +44,17 @@ export async function getCities(cities: string[] | null) {
 
 export async function getSuggestions(city: string) {
   const res = await fetch(
-    `http://autocomplete.travelpayouts.com/places2?term=${city}&locale=en&types[]=city`
+    `https://data.opendatasoft.com/api/records/1.0/search/?dataset=geonames-all-cities-with-a-population-1000%40public&q=${city}&lang=en&rows=10&sort=name`
+    // `http://autocomplete.travelpayouts.com/places2?term=${city}&locale=en&types[]=city`
   )
 
   if (!res.ok) {
-    return undefined
+    return []
   }
 
-  const data = await res.json()
+  const data: SearchType = await res.json()
 
-  return data
+  return data.records
 }
 
 export async function getCityFromClient(city: string) {
