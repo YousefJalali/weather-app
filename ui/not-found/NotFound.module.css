@@ -21,7 +21,7 @@
 }
 
 .message span:first-child {
-  font-size: var(--text-xl);
+  font-size: 1.266rem;
   font-weight: bold;
   color: var(--content-contrast);
   line-height: 1.5;
@@ -30,9 +30,9 @@
 .button {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
+  gap: 0.5rem;
   background-color: var(--brand-primary);
-  padding: var(--space-2) var(--space-3);
+  padding: 0.5rem 1rem;
   color: var(--layout-level0);
   border-radius: 8px;
 }

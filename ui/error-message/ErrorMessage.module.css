@@ -21,7 +21,7 @@
 }
 
 .message span:first-child {
-  font-size: var(--text-xl);
+  font-size: 1.266rem;
   font-weight: bold;
   color: var(--content-contrast);
   line-height: 1.5;

@@ -15,7 +15,7 @@
 /* search result */
 .search_item {
   cursor: pointer;
-  font-size: var(--text-sm);
+  font-size: 0.889rem;
   color: var(--content-subtle);
 }
 
@@ -28,7 +28,7 @@
   display: block;
   width: 100%;
   height: 100%;
-  padding: var(--space-3) var(--space-2);
+  padding: 1rem 0.5rem;
 }
 
 .search_item:active {
@@ -60,7 +60,7 @@
 }
 
 .no_result span:not(:last-child) {
-  margin-bottom: var(--space-1);
+  margin-bottom: 0.25rem;
 }
 
 .no_result > span:first-child {
@@ -68,7 +68,7 @@
 }
 
 .no_result > span:last-child {
-  font-size: var(--text-sm);
+  font-size: 0.889rem;
   color: var(--content-subtle);
 }
 
@@ -76,7 +76,7 @@
 .search_input {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
+  gap: 0.5rem;
 }
 
 .search_input > div:first-child {
@@ -90,5 +90,5 @@
   background-color: transparent;
   text-transform: capitalize;
   color: var(--brand-primary);
-  padding: var(--space-2) 0;
+  padding: 0.5rem 0;
 }

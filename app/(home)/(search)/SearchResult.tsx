@@ -1,28 +1,26 @@
-import Link from 'next/link'
-import { SearchRecordType, SearchType } from '@/types/SearchType'
-import styles from '@/styles/Search.module.css'
-import { constructPath } from '@/utils/slugify'
-import listStyles from '@/styles/List.module.css'
+import Link from "next/link";
+import { SearchRecordType } from "@/types/SearchType";
+import { constructPath } from "@/utils/slugify";
 
 export default function SearchResult({
   data,
   query,
 }: {
-  data: SearchRecordType
-  query: string
+  data: SearchRecordType;
+  query: string;
 }) {
   return (
-    <ul className={`${listStyles.list} `}>
+    <ul className="divide-y divide-layout-level0accent">
       {data.map((city) => {
-        const name = `${city.fields.ascii_name}, ${city.fields.cou_name_en}`
+        const name = `${city.fields.ascii_name}, ${city.fields.cou_name_en}`;
 
         const displayName = name.replace(
-          new RegExp(query, 'gi'),
-          (match) => `<mark>${match}</mark>`
-        )
+          new RegExp(query, "gi"),
+          (match) => `<mark class='text-content-contrast'>${match}</mark>`
+        );
 
         return (
-          <li key={city.recordid} className={styles.search_item}>
+          <li key={city.recordid}>
             <Link
               href={`/${constructPath(
                 city.fields.name,
@@ -31,11 +29,14 @@ export default function SearchResult({
                 city.fields.coordinates[1]
               )}`}
             >
-              <span dangerouslySetInnerHTML={{ __html: displayName }}></span>
+              <span
+                className="block py-4 text-content-nonessential"
+                dangerouslySetInnerHTML={{ __html: displayName }}
+              ></span>
             </Link>
           </li>
-        )
+        );
       })}
     </ul>
-  )
+  );
 }

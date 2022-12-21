@@ -1,14 +1,15 @@
-import { FiSearch } from 'react-icons/fi'
-import styles from '@/styles/Search.module.css'
+import { FiSearch } from "react-icons/fi";
 
 export default function NoResult({ query }: { query: string }) {
   return (
-    <div className={styles.no_result}>
-      <span>
+    <div className="flex w-full flex-col items-center py-6">
+      <span className="mb-3 text-4xl">
         <FiSearch />
       </span>
-      <span>No results</span>
-      <span>No results found for “{query}”</span>
+      <span className="leading-normal">No results</span>
+      <span className="text-sm text-content-nonessential">
+        No results found for “{query}”
+      </span>
     </div>
-  )
+  );
 }

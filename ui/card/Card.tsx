@@ -1,48 +1,54 @@
-import Image from 'next/image'
-import styles from './Card.module.css'
-import { CityType } from '@/types/CityType'
-import { FiNavigation, FiTrendingUp } from 'react-icons/fi'
+import Image from "next/image";
+import { CityType } from "@/types/CityType";
+import { FiNavigation, FiTrendingUp } from "react-icons/fi";
+
+function Tag({
+  current = false,
+  popular = false,
+}: {
+  current?: boolean;
+  popular?: boolean;
+}) {
+  return (
+    <div className="font-hairline mb-3 flex text-sm leading-none text-brand-primary">
+      <span className="mr-1">{current ? "CURRENT LOCATION" : "POPULAR"}</span>
+
+      {current ? <FiNavigation /> : <FiTrendingUp />}
+    </div>
+  );
+}
 
 export function Card({
   city,
   current = false,
   popular = false,
 }: {
-  city: CityType
-  current?: boolean
-  popular?: boolean
+  city: CityType;
+  current?: boolean;
+  popular?: boolean;
 }) {
   return (
     <div
-      className={styles.card}
-      style={{ height: current || popular ? 177.7 + 24.45 : 177.7 }}
+      // style={{ height: current || popular ? 177.7 + 24.45 : 177.7 }}
+      className="rounded-xl border border-layout-level0accent bg-layout-level1 p-4"
     >
-      {current && (
-        <div className={styles.current}>
-          <span>CURRENT LOCATION</span>
+      {current || popular ? <Tag current={current} popular={popular} /> : null}
 
-          <FiNavigation />
-        </div>
-      )}
-
-      {popular && (
-        <div className={styles.current}>
-          <span>POPULAR</span>
-
-          <FiTrendingUp />
-        </div>
-      )}
-
-      <div className={styles.wrapper}>
+      <div className="mb-3 flex justify-between text-content-contrast">
         <div>
-          <span className={styles.title}>{city.name}</span>
-          <div className={styles.temp}>
-            <span>{Math.round(city.main.temp)}</span>
-            <span>°</span>
+          <span className="mb-3 block truncate text-xl font-semibold leading-tight">
+            {city.name}
+          </span>
+          <div className="flex text-4xl leading-none">
+            <span className="text-5xl font-semibold ">
+              {Math.round(city.main.temp)}
+            </span>
+            <span className="text-2xl">°</span>
           </div>
         </div>
 
         <Image
+          className="w-auto object-scale-down"
           src={`/${city.weather[0].icon}.svg`}
           alt={city.weather[0].main}
           width={91.43}
@@ -50,13 +56,16 @@ export function Card({
         ></Image>
       </div>
 
-      <div className={`${styles.wrapper} ${styles.details}`}>
-        <span>{city.weather[0].description}</span>
+      <div className="flex justify-between text-sm">
+        <span className="capitalize text-utility-warning">
+          {city.weather[0].description}
+        </span>
+
         <span>
           L: {Math.round(city.main.temp_min)}° H:
           {Math.round(city.main.temp_max)}°
         </span>
       </div>
     </div>
-  )
+  );
 }

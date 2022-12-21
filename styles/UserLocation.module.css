@@ -19,7 +19,7 @@
   gap: var(--space-4);
   border: 1px solid var(--layout-level0accent);
   border-radius: 12px;
-  padding: var(--space-3);
+  padding: 1rem;
 }
 
 .request_location .illustration {
@@ -35,13 +35,13 @@
 .request_location .description span {
   display: block;
   color: var(--content-nonessential);
-  font-size: var(--text-sm);
+  font-size: 0.889rem;
   line-height: 1.5;
 }
 
 .request_location .description span:first-child {
-  font-size: var(--text-l);
+  font-size: 1.125rem;
   color: var(--content-contrast);
-  margin-bottom: var(--space-1);
+  margin-bottom: 0.25rem;
   font-weight: bold;
 }
