@@ -48,11 +48,11 @@ export function Card({
         </div>
 
         <Image
-          className="w-auto object-scale-down"
-          src={`/${city.weather[0].icon}.svg`}
+          className="h-auto scale-150 overflow-visible object-cover"
+          src={`/weather/animated/${city.weather[0].icon}.svg`}
           alt={city.weather[0].main}
-          width={91.43}
-          height={84}
+          width={56}
+          height={48}
         ></Image>
       </div>
 

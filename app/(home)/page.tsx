@@ -28,7 +28,7 @@ export default async function Page() {
       {/* <UserLocation /> */}
 
       <section>
-        <ul className="space-y-4">
+        <ul className="space-y-6">
           {fetchedCities.length <= 0 ? (
             <EmptyFavList />
           ) : (

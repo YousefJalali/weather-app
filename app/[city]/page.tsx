@@ -38,26 +38,29 @@ export default async function Page({
     <>
       <AddButton city={JSON.stringify(cookie)} />
 
-      <div className="mt-5 flex flex-col items-center">
+      <div className="mt-6 flex w-full flex-col items-center">
         <Image
-          src={`/${data.weather[0].icon}.svg`}
+          className="h-auto w-1/2 overflow-visible object-cover"
+          src={`/weather/animated/${data.weather[0].icon}.svg`}
           alt={data.weather[0].main}
-          width={91.43 * 1.5}
-          height={84 * 1.5}
+          width={56}
+          height={48}
         />
 
-        <h1 className="mt-6 truncate text-2xl">{data.name}</h1>
+        <div className="-mt-8 flex w-full flex-col items-center">
+          <h1 className=" truncate text-2xl">{data.name}</h1>
 
-        <div className="mt-3 flex text-6xl font-black text-content-contrast">
-          <span>{Math.round(data.main.temp)}</span>
-          <span className="text-2xl">°</span>
+          <div className="mt-3 flex text-6xl font-black text-content-contrast">
+            <span>{Math.round(data.main.temp)}</span>
+            <span className="text-2xl">°</span>
+          </div>
+
+          <span className="text-l mt-4 block capitalize text-content-nonessential ">
+            {data.weather[0].description}
+          </span>
+
+          <WeatherDetails data={data} />
         </div>
-
-        <span className="text-l mt-4 block capitalize text-content-nonessential ">
-          {data.weather[0].description}
-        </span>
-
-        <WeatherDetails data={data} />
       </div>
     </>
   );

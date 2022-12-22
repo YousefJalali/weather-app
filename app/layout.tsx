@@ -23,7 +23,7 @@ export default function RootLayout({
         <title>Weather App</title>
       </head>
       <body>
-        <div className="font-xl md:font-2xl lg:font-3xl bg-layout-level0 p-6 text-content-default">
+        <div className="font-xl md:font-2xl lg:font-3xl container mx-auto max-w-2xl bg-layout-level0 p-6 text-content-default">
           {children}
         </div>
       </body>
