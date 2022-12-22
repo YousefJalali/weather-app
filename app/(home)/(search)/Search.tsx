@@ -50,34 +50,38 @@ export default function SearchField() {
   }, [debouncedSearch]);
 
   return (
-    <div className="relative">
-      <div className="mb-4">
-        <SearchInput
-          value={query}
-          onChange={changeHandler}
-          onCancel={cancelHandler}
-          data-test="search-input"
-        />
-        {/* {query.length > 0 && <button onClick={cancelHandler}>cancel</button>} */}
-      </div>
-
+    <>
       {query.length > 0 && (
-        <div
-          className="absolute top-full left-0 h-full min-h-screen w-full bg-layout-level0"
-          data-test="search-result"
-        >
-          {loading ? (
-            <Loading />
-          ) : (
-            <>
-              {suggestions.length > 0 && (
-                <SearchResult data={suggestions} query={query} />
-              )}
-              {suggestions.length <= 0 && <NoResult query={query} />}
-            </>
-          )}
-        </div>
+        <div className="fixed top-0 left-0 z-10 h-screen w-screen bg-layout-level0" />
       )}
-    </div>
+      <div className="relative z-20">
+        <div className="mb-4">
+          <SearchInput
+            value={query}
+            onChange={changeHandler}
+            onCancel={cancelHandler}
+            data-test="search-input"
+          />
+        </div>
+
+        {query.length > 0 && (
+          <div
+            className="absolute top-full left-0 h-full min-h-screen w-full bg-layout-level0"
+            data-test="search-result"
+          >
+            {loading ? (
+              <Loading />
+            ) : (
+              <>
+                {suggestions.length > 0 && (
+                  <SearchResult data={suggestions} query={query} />
+                )}
+                {suggestions.length <= 0 && <NoResult query={query} />}
+              </>
+            )}
+          </div>
+        )}
+      </div>
+    </>
   );
 }
