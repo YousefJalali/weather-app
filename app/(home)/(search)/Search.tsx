@@ -11,7 +11,7 @@ import { SearchRecordType } from "@/types/SearchType";
 
 export default function SearchField() {
   const [query, setQuery] = useState("");
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [suggestions, setSuggestions] = useState<SearchRecordType>([]);
 
   const changeHandler = async (e: ChangeEvent<HTMLInputElement>) => {

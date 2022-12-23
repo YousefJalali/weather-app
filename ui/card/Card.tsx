@@ -1,6 +1,6 @@
-import Image from "next/image";
 import { CityType } from "@/types/CityType";
 import { FiNavigation, FiTrendingUp } from "react-icons/fi";
+import WeatherIcon from "app/(home)/WeatherIcon";
 
 function Tag({
   current = false,
@@ -47,13 +47,9 @@ export function Card({
           </div>
         </div>
 
-        <Image
-          className="h-auto scale-150 overflow-visible object-cover"
-          src={`/weather/animated/${city.weather[0].icon}.svg`}
-          alt={city.weather[0].main}
-          width={56}
-          height={48}
-        ></Image>
+        <div className="scale-[2.5]">
+          <WeatherIcon code={city.weather[0].icon} />
+        </div>
       </div>
 
       <div className="flex justify-between text-sm">
