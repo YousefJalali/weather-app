@@ -47,7 +47,7 @@ export function Card({
           </div>
         </div>
 
-        <div className="scale-[2.5]">
+        <div className="mt-4 mr-2 h-fit scale-[2.5]">
           <WeatherIcon code={city.weather[0].icon} />
         </div>
       </div>
