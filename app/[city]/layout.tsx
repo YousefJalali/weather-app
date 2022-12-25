@@ -1,6 +1,5 @@
-import Link from "next/link";
-import { FiArrowLeft } from "react-icons/fi";
-// import styles from '@/styles/Details.module.css'
+import Link from 'next/link';
+import { FiArrowLeft } from 'react-icons/fi';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (

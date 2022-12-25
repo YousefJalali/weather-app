@@ -1,84 +1,82 @@
-'use client'
+'use client';
 
-import { getCityFromClient } from '@/lib/data'
-import styles from '@/styles/UserLocation.module.css'
-import { CityType } from '@/types/CityType'
-import { Card, CardSkeleton } from '@/ui/card'
-import { constructPath } from '@/utils/slugify'
-import Link from 'next/link'
-import { useEffect, useState } from 'react'
-import RequestLocation from './RequestLocation'
+import { getCityFromClient } from '@/lib/data';
+import { CityType } from '@/types/CityType';
+import { Card, CardSkeleton } from '@/ui/card';
+import { constructPath } from '@/utils/slugify';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import RequestLocation from './RequestLocation';
 
 export default function UserLocation() {
-  const [loading, setLoading] = useState(true)
-  const [geolocationState, setGeolocationState] = useState<
-    'granted' | 'denied'
-  >('denied')
-
-  const [userCity, setUserCity] = useState<CityType | null>(null)
+  const [loading, setLoading] = useState(true);
+  const [userCity, setUserCity] = useState<CityType | null>(null);
+  const [isPermissionDenied, setPermission] = useState(false);
 
   useEffect(() => {
     navigator.permissions.query({ name: 'geolocation' }).then((res) => {
+      console.log(res.state);
       if (res.state === 'granted') {
-        setGeolocationState('granted')
-      } else {
-        setLoading(false)
-        setGeolocationState('denied')
-      }
-    })
-  }, [])
-
-  useEffect(() => {
-    if (geolocationState === 'granted') {
-      const geolocationAPI = navigator.geolocation
-
-      if (!geolocationAPI) {
-        throw new Error('geolocation API failed!')
+        getLocation();
+        return;
       }
 
-      geolocationAPI.getCurrentPosition(
-        (position) => {
-          const {
-            coords: { latitude, longitude },
-          } = position
+      setLoading(false);
 
-          getCityFromClient(`lat=${latitude}&lon=${longitude}`)
-            .then((data) => {
-              setLoading(false)
+      if (res.state === 'denied') {
+        setPermission(true);
+        return;
+      }
+    });
+  }, []);
 
-              setUserCity(data)
-            })
-            .catch((error) => {
-              setLoading(false)
-            })
-        },
-        (error) => {
-          throw new Error('Something went wrong getting your position!')
-        }
-      )
-    }
-  }, [geolocationState])
+  const getLocation = () =>
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const {
+          coords: { latitude, longitude },
+        } = position;
+
+        setLoading(true);
+
+        getCityFromClient(`lat=${latitude}&lon=${longitude}`)
+          .then((data) => {
+            setLoading(false);
+
+            setUserCity(data);
+          })
+          .catch((error) => {
+            setLoading(false);
+            console.log(error);
+          });
+      },
+      (error) => {
+        setLoading(false);
+        setPermission(true);
+        console.log(error);
+      }
+    );
 
   return loading ? (
-    <section className={styles.container}>
+    <section className="mb-4">
       <CardSkeleton current />
     </section>
-  ) : geolocationState === 'granted' ? (
-    userCity && (
-      <section className={styles.container}>
-        <Link
-          href={`/${constructPath(
-            userCity.name,
-            userCity.sys.country,
-            userCity.coord.lat,
-            userCity.coord.lon
-          )}`}
-        >
-          <Card city={userCity} current />
-        </Link>
-      </section>
-    )
+  ) : userCity ? (
+    <section className="mb-4">
+      <Link
+        href={`/${constructPath(
+          userCity.name,
+          userCity.sys.country,
+          userCity.coord.lat,
+          userCity.coord.lon
+        )}`}
+      >
+        <Card city={userCity} current />
+      </Link>
+    </section>
   ) : (
-    <RequestLocation />
-  )
+    <RequestLocation
+      requestPermission={isPermissionDenied ? undefined : getLocation}
+    />
+  );
 }

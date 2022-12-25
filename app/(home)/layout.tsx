@@ -1,5 +1,4 @@
-import Search from './(search)/Search'
-import styles from '@/styles/HomeLayout.module.css'
+import Search from './(search)/Search';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -7,7 +6,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <header>
         <Search />
       </header>
-      <main className={styles.container}>{children}</main>
+      <main>{children}</main>
     </>
-  )
+  );
 }

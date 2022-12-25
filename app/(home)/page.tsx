@@ -6,7 +6,6 @@ import { cookies } from 'next/headers';
 import { getCities } from '@/lib/data';
 import { cookieToQuery } from '@/utils/slugify';
 import UserLocation from './(user-location)/UserLocation';
-import RequestLocation from './(user-location)/RequestLocation';
 import EmptyFavList from './EmptyFavList';
 
 const POPULAR_CITIES = ['city=Doha&country=QA&lon=-9.5982&lat=30.4202'];
@@ -23,9 +22,7 @@ export default async function Page() {
 
   return (
     <>
-      {/* <Loading /> */}
-      {/* {geolocation && JSON.parse(geolocation.value) === 'granted' ? ( */}
-      {/* <UserLocation /> */}
+      <UserLocation />
 
       <section>
         <ul className="space-y-6">
