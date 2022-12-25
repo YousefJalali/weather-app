@@ -14,20 +14,25 @@ export default function UserLocation() {
   const [isPermissionDenied, setPermission] = useState(false);
 
   useEffect(() => {
-    navigator.permissions.query({ name: 'geolocation' }).then((res) => {
-      console.log(res.state);
-      if (res.state === 'granted') {
-        getLocation();
-        return;
-      }
+    navigator.permissions
+      .query({ name: 'geolocation' })
+      .then((res) => {
+        console.log(res.state);
+        if (res.state === 'granted') {
+          getLocation();
+          return;
+        }
 
-      setLoading(false);
+        setLoading(false);
 
-      if (res.state === 'denied') {
-        setPermission(true);
-        return;
-      }
-    });
+        if (res.state === 'denied') {
+          setPermission(true);
+          return;
+        }
+      })
+      .catch((error) =>
+        console.log('[error in navigator.permissions.query]: ', error)
+      );
   }, []);
 
   const getLocation = () =>
@@ -53,7 +58,10 @@ export default function UserLocation() {
       (error) => {
         setLoading(false);
         setPermission(true);
-        console.log(error);
+        console.log(
+          '[error in navigator.geolocation.getCurrentPosition]: ',
+          error
+        );
       }
     );
 
