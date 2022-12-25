@@ -1,6 +1,27 @@
-import { CityType } from "@/types/CityType";
-import { FiNavigation, FiTrendingUp } from "react-icons/fi";
-import WeatherIcon from "app/(home)/WeatherIcon";
+import { CityType } from '@/types/CityType';
+import { FiNavigation, FiTrendingUp } from 'react-icons/fi';
+import WeatherIcon from 'app/(home)/WeatherIcon';
+
+const ICONS = [
+  '01d',
+  '01n',
+  '02d',
+  '02n',
+  '03d',
+  '03n',
+  '04d',
+  '04n',
+  '09d',
+  '09n',
+  '10d',
+  '10n',
+  '11d',
+  '11n',
+  '13d',
+  '13n',
+  '50d',
+  '50n',
+];
 
 function Tag({
   current = false,
@@ -11,7 +32,7 @@ function Tag({
 }) {
   return (
     <div className="font-hairline mb-3 flex text-sm leading-none text-brand-primary">
-      <span className="mr-1">{current ? "CURRENT LOCATION" : "POPULAR"}</span>
+      <span className="mr-1">{current ? 'CURRENT LOCATION' : 'POPULAR'}</span>
 
       {current ? <FiNavigation /> : <FiTrendingUp />}
     </div>
@@ -35,10 +56,11 @@ export function Card({
       {current || popular ? <Tag current={current} popular={popular} /> : null}
 
       <div className="mb-3 flex justify-between text-content-contrast">
-        <div>
+        <div className="max-w-[calc(100%-5rem)]">
           <span className="mb-3 block truncate text-xl font-semibold leading-tight">
             {city.name}
           </span>
+
           <div className="flex text-4xl leading-none">
             <span className="text-5xl font-semibold ">
               {Math.round(city.main.temp)}
@@ -47,7 +69,8 @@ export function Card({
           </div>
         </div>
 
-        <div className="mt-4 mr-2 h-fit scale-[2.5]">
+        <div className="h-20 w-20 [&>svg]:h-full [&>svg]:w-full [&>svg]:overflow-visible">
+          {/* <WeatherIcon code={ICONS[17]} /> */}
           <WeatherIcon code={city.weather[0].icon} />
         </div>
       </div>

@@ -1,11 +1,11 @@
-import { notFound } from "next/navigation";
-import WeatherDetails from "./WeatherDetails";
+import { notFound } from 'next/navigation';
+import WeatherDetails from './WeatherDetails';
 
-import { getCity } from "@/lib/data";
-import { CityType } from "@/types/CityType";
-import { constructQuery } from "@/utils/slugify";
-import AddButton from "./AddButton";
-import WeatherIcon from "app/(home)/WeatherIcon";
+import { getCity } from '@/lib/data';
+import { CityType } from '@/types/CityType';
+import { constructQuery } from '@/utils/slugify';
+import AddButton from './AddButton';
+import WeatherIcon from 'app/(home)/WeatherIcon';
 
 export default async function Page({
   params,
@@ -39,7 +39,7 @@ export default async function Page({
       <AddButton city={JSON.stringify(cookie)} />
 
       <div className="mt-6 flex w-full flex-col items-center">
-        <div className="my-8 scale-[2.5]">
+        <div className="h-24 w-24 [&>svg]:h-full [&>svg]:w-full [&>svg]:overflow-visible">
           <WeatherIcon code={data.weather[0].icon} />
         </div>
 
