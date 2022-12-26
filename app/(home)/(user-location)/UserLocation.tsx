@@ -14,10 +14,13 @@ export default function UserLocation() {
   const [isPermissionDenied, setPermission] = useState(false);
 
   useEffect(() => {
+    // const permissions = navigator.permissions;
+
+    // if (!permissions) return;
+
     navigator.permissions
-      .query({ name: 'geolocation' })
+      ?.query({ name: 'geolocation' })
       .then((res) => {
-        console.log(res.state);
         if (res.state === 'granted') {
           getLocation();
           return;
@@ -36,7 +39,7 @@ export default function UserLocation() {
   }, []);
 
   const getLocation = () =>
-    navigator.geolocation.getCurrentPosition(
+    navigator.geolocation?.getCurrentPosition(
       (position) => {
         const {
           coords: { latitude, longitude },
