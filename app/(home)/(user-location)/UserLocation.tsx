@@ -14,11 +14,14 @@ export default function UserLocation() {
   const [isPermissionDenied, setPermission] = useState(false);
 
   useEffect(() => {
-    // const permissions = navigator.permissions;
+    const permissions = navigator.permissions;
 
-    // if (!permissions) return;
+    if (!permissions) {
+      setLoading(false);
+      return;
+    }
 
-    navigator.permissions
+    permissions
       ?.query({ name: 'geolocation' })
       .then((res) => {
         if (res.state === 'granted') {
