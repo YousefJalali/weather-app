@@ -25,7 +25,7 @@ export default function RequestLocation({
             : 'Enable geolocation from settings so you can get the weather in your current location'}
         </div>
 
-        {requestPermission && (
+        {
           <div>
             <a
               onClick={requestPermission}
@@ -34,7 +34,7 @@ export default function RequestLocation({
               Enable
             </a>
           </div>
-        )}
+        }
       </div>
       <button
         type="button"

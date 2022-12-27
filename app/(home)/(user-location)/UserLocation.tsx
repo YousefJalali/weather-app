@@ -13,36 +13,47 @@ export default function UserLocation() {
   const [userCity, setUserCity] = useState<CityType | null>(null);
   const [isPermissionDenied, setPermission] = useState(false);
 
-  useEffect(() => {
-    const permissions = navigator.permissions;
+  // useEffect(() => {
+  //   const permissions = navigator.permissions;
 
-    if (!permissions) {
-      setLoading(false);
-      return;
+  //   if (!permissions) {
+  //     setLoading(false);
+  //     return;
+  //   }
+
+  //   permissions
+  //     ?.query({ name: 'geolocation' })
+  //     .then((res) => {
+  //       if (res.state === 'granted') {
+  //         getLocation();
+  //         return;
+  //       }
+
+  //       setLoading(false);
+
+  //       if (res.state === 'denied') {
+  //         setPermission(true);
+  //         return;
+  //       }
+  //     })
+  //     .catch((error) =>
+  //       console.log('[error in navigator.permissions.query]: ', error)
+  //     );
+  // }, []);
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      if (typeof getLocation() === 'undefined') {
+        console.log('holli');
+      }
     }
 
-    permissions
-      ?.query({ name: 'geolocation' })
-      .then((res) => {
-        if (res.state === 'granted') {
-          getLocation();
-          return;
-        }
-
-        setLoading(false);
-
-        if (res.state === 'denied') {
-          setPermission(true);
-          return;
-        }
-      })
-      .catch((error) =>
-        console.log('[error in navigator.permissions.query]: ', error)
-      );
+    console.log(getLocation());
+    getLocation();
   }, []);
 
   const getLocation = () =>
-    navigator.geolocation?.getCurrentPosition(
+    navigator.geolocation.getCurrentPosition(
       (position) => {
         const {
           coords: { latitude, longitude },
@@ -89,8 +100,6 @@ export default function UserLocation() {
       </Link>
     </section>
   ) : (
-    <RequestLocation
-      requestPermission={isPermissionDenied ? undefined : getLocation}
-    />
+    <RequestLocation requestPermission={getLocation} />
   );
 }
