@@ -2,13 +2,11 @@
 
 module.exports = {
   content: [
-    './node_modules/tw-elements/dist/js/**/*.js',
     './app/**/*.{js,ts,jsx,tsx,json}',
     './pages/**/*.{js,ts,jsx,tsx}',
     './ui/**/*.{js,ts,jsx,tsx,svg}',
     './public/**/*.{svg}',
   ],
-  plugins: [require('tw-elements/dist/plugin')],
   theme: {
     colors: {
       brand: {

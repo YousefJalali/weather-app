@@ -3,7 +3,6 @@ import format from 'date-fns/format'
 import { getForecast } from '@/lib/data'
 import { ForecastType } from '@/types/ForecastType'
 import groupBy from 'lodash/groupBy'
-import _ from 'lodash'
 import DailyForecast from './DailyForecast'
 import HourlyForecast from './HourlyForecast'
 
