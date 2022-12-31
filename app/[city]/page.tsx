@@ -42,7 +42,7 @@ export default async function Page({
       <AddButton city={JSON.stringify(cookie)} />
 
       <div className="mt-6 flex w-full flex-col items-center">
-        <WeatherIcon height={24} width={24} code={data.weather[0].icon} />
+        <WeatherIcon className="h-24 w-24" code={data.weather[0].icon} />
 
         <div className="mt-8 flex w-full flex-col items-center">
           <h1 className="mb-1 truncate text-2xl">{data.name}</h1>

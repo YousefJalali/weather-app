@@ -2,12 +2,10 @@ import * as WeatherIcons from '@/ui/illustrations'
 
 const WeatherIcon = ({
   code,
-  height = 5,
-  width = 5,
+  className,
 }: {
   code: string
-  height?: number
-  width?: number
+  className?: string
 }) => {
   const icon = `Icon${code}`
 
@@ -16,7 +14,9 @@ const WeatherIcon = ({
 
   return (
     <div
-      className={`h-${height} w-${width} [&>svg]:h-full [&>svg]:w-full [&>svg]:overflow-visible`}
+      className={`h-5 w-5 [&>svg]:h-full [&>svg]:w-full [&>svg]:overflow-visible ${
+        className ? className : ''
+      }`}
     >
       <Icon />
     </div>

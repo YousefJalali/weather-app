@@ -45,7 +45,7 @@ export function Card({
           </div>
         </div>
 
-        <WeatherIcon height={20} width={20} code={city.weather[0].icon} />
+        <WeatherIcon className="h-20 w-20" code={city.weather[0].icon} />
       </div>
 
       <div className="flex justify-between text-sm">
