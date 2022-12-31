@@ -7,10 +7,16 @@ export default function HourlyForecast({
 }: {
   forecast: (ForecastItemType & { date: string })[]
 }) {
+  const align =
+    forecast.length > 2 ? 'justify-between' : '[&>li]:mr-[calc(12rem/4)]'
+
   return (
-    <ul className="flex w-full justify-between p-4">
+    <ul className={`flex w-full p-4 ${align}`}>
       {forecast.map((hourly) => (
-        <li key={hourly.dt} className="flex flex-col items-center space-y-2">
+        <li
+          key={hourly.dt}
+          className="flex w-12 flex-col items-center space-y-2"
+        >
           <span className="text-xs text-content-subtle">
             {getTime(hourly.dt)}
           </span>

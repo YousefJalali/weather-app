@@ -19,7 +19,7 @@ export default function DailyForecast({
   forecast: (ForecastItemType & { date: string })[][]
 }) {
   return (
-    <Accordion className="mt-4 w-full space-y-2">
+    <Accordion className="w-full space-y-2">
       {forecast.slice(1).map((day, i) => (
         <AccordionItem key={i} className="rounded-lg bg-layout-level2">
           <AccordionTitle className="flex w-full items-center justify-between px-4 py-2">
@@ -42,7 +42,7 @@ export default function DailyForecast({
             </div>
           </AccordionTitle>
 
-          <AccordionContent className="border-t border-layout-level2accent">
+          <AccordionContent className="bg-layout-level3">
             <HourlyForecast forecast={day.filter((e, i) => i % 2 === 0)} />
           </AccordionContent>
         </AccordionItem>

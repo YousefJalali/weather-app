@@ -11,7 +11,7 @@ export const getDay = (date: number) =>
     ? 'Yesterday'
     : isTomorrow(fromUnixTime(date))
     ? 'Tomorrow'
-    : format(fromUnixTime(date), 'E')
+    : format(fromUnixTime(date), 'EEEE')
 
 export const getFullDate = (date: number) => `${getDay(date)}, 
 ${format(fromUnixTime(date), 'MMM d h:m a')}`
