@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 import RequestLocation from './RequestLocation';
 
 export default function UserLocation() {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [userCity, setUserCity] = useState<CityType | null>(null);
   const [isPermissionDenied, setPermission] = useState(false);
 
@@ -40,17 +40,6 @@ export default function UserLocation() {
   //       console.log('[error in navigator.permissions.query]: ', error)
   //     );
   // }, []);
-
-  useEffect(() => {
-    if (navigator.geolocation) {
-      if (typeof getLocation() === 'undefined') {
-        console.log('holli');
-      }
-    }
-
-    console.log(getLocation());
-    getLocation();
-  }, []);
 
   const getLocation = () =>
     navigator.geolocation.getCurrentPosition(
@@ -100,6 +89,9 @@ export default function UserLocation() {
       </Link>
     </section>
   ) : (
-    <RequestLocation requestPermission={getLocation} />
+    <RequestLocation
+      isPermissionDenied={isPermissionDenied}
+      getLocation={getLocation}
+    />
   );
 }

@@ -1,4 +1,4 @@
-import { SearchRecordType, SearchType } from '@/types/SearchType'
+import { SearchType } from '@/types/SearchType'
 
 const baseUrl = 'https://api.openweathermap.org'
 
@@ -44,7 +44,7 @@ export async function getCities(cities: string[] | null) {
 
 export async function getSuggestions(city: string) {
   const res = await fetch(
-    `https://data.opendatasoft.com/api/records/1.0/search/?dataset=geonames-all-cities-with-a-population-1000%40public&q=${city}&lang=en&rows=10&sort=name`
+    `https://data.opendatasoft.com/api/records/1.0/search/?dataset=geonames-all-cities-with-a-population-1000%40public&q=${city}&lang=en&rows=50&sort=name`
     // `http://autocomplete.travelpayouts.com/places2?term=${city}&locale=en&types[]=city`
   )
 
@@ -69,6 +69,19 @@ export async function getCityFromClient(city: string) {
     }
 
     throw new Error('Failed to fetch data')
+  }
+
+  return res.json()
+}
+
+export async function getForecast({ lat, lon }: { lat: string; lon: string }) {
+  const res = await fetch(
+    `${baseUrl}/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${process.env.WEATHER_KEY}&units=metric&lang=en`,
+    { next: { revalidate: 60 } }
+  )
+
+  if (!res.ok) {
+    return undefined
   }
 
   return res.json()

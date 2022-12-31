@@ -1,10 +1,11 @@
 module.exports = {
   singleQuote: true,
+  semi: false,
   overrides: [
     {
-      files: "*.svg",
+      files: '*.svg',
       options: {
-        parser: "html",
+        parser: 'html',
       },
     },
   ],

@@ -1,32 +1,26 @@
-import * as WeatherIcons from "@/ui/illustrations";
+import * as WeatherIcons from '@/ui/illustrations'
 
-// type Code =
-//   | "01d"
-//   | "01n"
-//   | "02d"
-//   | "02n"
-//   | "03d"
-//   | "03n"
-//   | "04d"
-//   | "04n"
-//   | "09d"
-//   | "09n"
-//   | "10d"
-//   | "10n"
-//   | "11d"
-//   | "11n"
-//   | "13d"
-//   | "13n"
-//   | "50d"
-//   | "50n";
-
-const WeatherIcon = ({ code }: { code: string }) => {
-  const icon = `Icon${code}`;
+const WeatherIcon = ({
+  code,
+  height = 5,
+  width = 5,
+}: {
+  code: string
+  height?: number
+  width?: number
+}) => {
+  const icon = `Icon${code}`
 
   //@ts-ignore
-  const Icon = WeatherIcons[icon];
+  const Icon = WeatherIcons[icon]
 
-  return <Icon />;
-};
+  return (
+    <div
+      className={`h-${height} w-${width} [&>svg]:h-full [&>svg]:w-full [&>svg]:overflow-visible`}
+    >
+      <Icon />
+    </div>
+  )
+}
 
-export default WeatherIcon;
+export default WeatherIcon

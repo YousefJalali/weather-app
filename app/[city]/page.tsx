@@ -1,18 +1,21 @@
-import { notFound } from 'next/navigation';
-import WeatherDetails from './WeatherDetails';
+import { notFound } from 'next/navigation'
 
-import { getCity } from '@/lib/data';
-import { CityType } from '@/types/CityType';
-import { constructQuery } from '@/utils/slugify';
-import AddButton from './AddButton';
-import WeatherIcon from 'app/(home)/WeatherIcon';
+import WeatherDetails from './WeatherDetails'
+
+import { getCity } from '@/lib/data'
+import { CityType } from '@/types/CityType'
+import { constructQuery } from '@/utils/slugify'
+import AddButton from './AddButton'
+import WeatherIcon from 'app/(home)/WeatherIcon'
+import Forecast from './(forecast)/Forecast'
+import { getFullDate } from '@/utils/dateHelpers'
 
 export default async function Page({
   params,
   searchParams,
 }: {
-  params: { city: string };
-  searchParams: { country: string; lat: number; lon: number };
+  params: { city: string }
+  searchParams: { country: string; lat: number; lon: number }
 }) {
   const data: CityType = await getCity(
     constructQuery(
@@ -21,10 +24,10 @@ export default async function Page({
       searchParams.lat,
       searchParams.lon
     )
-  );
+  )
 
   if (!data) {
-    notFound();
+    notFound()
   }
 
   const cookie = {
@@ -32,19 +35,20 @@ export default async function Page({
     country: searchParams.country,
     lat: searchParams.lat,
     lon: searchParams.lon,
-  };
+  }
 
   return (
     <>
       <AddButton city={JSON.stringify(cookie)} />
 
       <div className="mt-6 flex w-full flex-col items-center">
-        <div className="h-24 w-24 [&>svg]:h-full [&>svg]:w-full [&>svg]:overflow-visible">
-          <WeatherIcon code={data.weather[0].icon} />
-        </div>
+        <WeatherIcon height={24} width={24} code={data.weather[0].icon} />
 
         <div className="mt-8 flex w-full flex-col items-center">
-          <h1 className=" truncate text-2xl">{data.name}</h1>
+          <h1 className="mb-1 truncate text-2xl">{data.name}</h1>
+          <span className="text-sm text-content-nonessential">
+            {getFullDate(data.dt)}
+          </span>
 
           <div className="mt-3 flex text-6xl font-black text-content-contrast">
             <span>{Math.round(data.main.temp)}</span>
@@ -56,8 +60,16 @@ export default async function Page({
           </span>
 
           <WeatherDetails data={data} />
+
+          {/* @ts-expect-error Server Component */}
+          <Forecast
+            coords={{
+              lon: searchParams.lon.toString(),
+              lat: searchParams.lat.toString(),
+            }}
+          />
         </div>
       </div>
     </>
-  );
+  )
 }
