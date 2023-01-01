@@ -5,7 +5,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="relative">
       <header className="mb-4 flex items-center justify-between text-2xl">
-        <Link href="/" className="py-2">
+        <Link href="/">
           <FiArrowLeft />
         </Link>
       </header>
