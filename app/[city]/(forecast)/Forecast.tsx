@@ -1,5 +1,3 @@
-import format from 'date-fns/format'
-
 import { getForecast } from '@/lib/data'
 import { ForecastType } from '@/types/ForecastType'
 import groupBy from 'lodash/groupBy'
@@ -7,7 +5,8 @@ import DailyForecast from './DailyForecast'
 import HourlyForecast from './HourlyForecast'
 import { ReactNode } from 'react'
 import { IoCalendarOutline } from 'react-icons/io5'
-import { FiCalendar, FiClock } from 'react-icons/fi'
+import { FiClock } from 'react-icons/fi'
+import { formatDate } from '@/utils/dateHelpers'
 
 const Card = ({
   title,
@@ -41,7 +40,8 @@ export default async function Forecast({
   const group = groupBy(
     data.list.map((e) => ({
       ...e,
-      date: format(new Date(e.dt_txt), 'dd/MM/yyyy'),
+      date: formatDate(e.dt, data.city.timezone, 'dd/MM/yyyy'),
+      timezone: data.city.timezone,
     })),
     'date'
   )

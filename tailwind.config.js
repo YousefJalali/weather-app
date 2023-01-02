@@ -55,6 +55,10 @@ module.exports = {
     },
 
     extend: {
+      dropShadow: ({ theme }) => ({
+        glow: `0 0 4px ${theme('colors.brand.primary.DEFAULT')}`,
+      }),
+
       fontFamily: {
         sans: ['var(--font-poppins)'],
       },

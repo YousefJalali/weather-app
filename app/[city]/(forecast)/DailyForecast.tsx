@@ -2,7 +2,7 @@
 
 import { ForecastItemType } from '@/types/ForecastType'
 
-import { getDate, getDay } from '@/utils/dateHelpers'
+import { convertDateToTZ, getDate, getDay } from '@/utils/dateHelpers'
 
 import WeatherIcon from 'app/(home)/WeatherIcon'
 import HourlyForecast from './HourlyForecast'
@@ -16,7 +16,7 @@ import {
 export default function DailyForecast({
   forecast,
 }: {
-  forecast: (ForecastItemType & { date: string })[][]
+  forecast: (ForecastItemType & { date: string; timezone: number })[][]
 }) {
   return (
     <Accordion className="w-full space-y-2">
@@ -24,10 +24,10 @@ export default function DailyForecast({
         <AccordionItem key={i} className="rounded-lg bg-layout-level2">
           <AccordionTitle className="flex w-full items-center justify-between px-4 py-2">
             <div className="w-full text-left text-sm">
-              <span>{getDay(day[0].dt)}</span>
+              <span>{getDay(convertDateToTZ(day[0].dt, day[0].timezone))}</span>
 
               <span className="block text-xs text-content-subtle">
-                {getDate(day[0].dt)}
+                {getDate(convertDateToTZ(day[0].dt, day[0].timezone))}
               </span>
             </div>
 
