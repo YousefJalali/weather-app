@@ -15,22 +15,12 @@ import {
   ReferenceLine,
   Label,
 } from 'recharts'
-import fromUnixTime from 'date-fns/fromUnixTime'
-import { convertDateToTZ, duration, getFullTime } from '@/utils/dateHelpers'
-
-// const sunset = 6.25
-// const sunrise = 20.3
-
-// const data = [{ time: 12 - sunrise }, { time: 12 }, { time: sunset - 12 }]
-
-const dateToNumber = (date: number, timezone: number) =>
-  +(
-    fromUnixTime(date).getUTCHours() +
-    fromUnixTime(timezone).getUTCHours() +
-    fromUnixTime(date).getMinutes() / 60
-  ).toFixed(2)
-
-// const numberToDate = (number: number) => number.toString().split('.').reduce((acc, cur) => ,0)
+import {
+  convertDateToTZ,
+  dateToNumber,
+  duration,
+  getTimeFromDate,
+} from '@/utils/dateHelpers'
 
 export default function Chart({
   dt,
@@ -45,13 +35,16 @@ export default function Chart({
 }) {
   const sunriseTime = dateToNumber(sunrise, timezone)
   const sunsetTime = dateToNumber(sunset, timezone)
+  const currentTime = dateToNumber(dt, timezone)
+
+  // console.log({ sunriseTime }, { sunsetTime }, { currentTime })
 
   const data = [
-    { name: 'start', y: 0 - sunriseTime },
-    { name: 'sunrise', y: 0 },
-    { name: 'afternoon', y: 12 },
-    { name: 'sunset', y: 0 },
-    { name: 'end', y: sunsetTime - 24 },
+    { name: 'start', x: 0, y: 0 },
+    { name: 'sunrise', x: sunriseTime, y: 12 },
+    { name: 'afternoon', x: 12, y: 24 },
+    { name: 'sunset', x: sunsetTime, y: 12 },
+    { name: 'end', x: 24, y: 0 },
   ]
 
   return (
@@ -59,16 +52,14 @@ export default function Chart({
       <div className="h-40">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart width={300} height={100} data={data}>
-            <XAxis dataKey="name" hide />
-
             {['sunset', 'sunrise'].map((ele) => (
               <ReferenceLine
                 key={ele}
                 className=" stroke-layout-divider"
                 strokeDasharray="3 3"
                 segment={[
-                  { x: ele, y: 0 },
-                  { x: ele, y: 6 },
+                  { x: ele === 'sunset' ? sunsetTime : sunriseTime, y: 18 },
+                  { x: ele === 'sunset' ? sunsetTime : sunriseTime, y: 12 },
                 ]}
               >
                 <Label
@@ -78,11 +69,10 @@ export default function Chart({
                   className="stroke-content-nonessential text-xs font-thin capitalize "
                 />
                 <Label
-                  value={getFullTime(
-                    convertDateToTZ(
-                      ele === 'sunset' ? sunset : sunrise,
-                      timezone
-                    )
+                  value={getTimeFromDate(
+                    ele === 'sunset' ? sunset : sunrise,
+                    timezone,
+                    true
                   )}
                   offset={6}
                   position="top"
@@ -92,11 +82,18 @@ export default function Chart({
             ))}
 
             <ReferenceLine
-              y={0}
-              // label="HORIZON"
+              y={12}
+              label="HORIZON"
               strokeWidth={3}
               className=" [&>*]:stroke-layout-level1accent [&>text]:stroke-brand-primary"
             />
+
+            <ReferenceDot x="current" y={currentTime} label="MAX" />
+
+            <XAxis dataKey="x" hide />
+            <YAxis dataKey="y" hide />
+
+            <Tooltip />
 
             <Line
               type="monotone"
@@ -157,7 +154,7 @@ export default function Chart({
         </ResponsiveContainer>
       </div>
 
-      <div className="flex justify-between">
+      <div className="mt-2 flex justify-between">
         <div className="space-x-1 text-sm text-content-subtle">
           <span>Day length:</span>
           <span className="text-content-default">

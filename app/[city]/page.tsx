@@ -8,10 +8,8 @@ import { constructQuery } from '@/utils/slugify'
 import AddButton from './AddButton'
 import WeatherIcon from 'app/(home)/WeatherIcon'
 import Forecast from './(forecast)/Forecast'
-import { convertDateToTZ, getDay, getFullDate } from '@/utils/dateHelpers'
+import { getDay, getTimeFromDate } from '@/utils/dateHelpers'
 import Chart from './Chart'
-
-import fromUnixTime from 'date-fns/fromUnixTime'
 
 export default async function Page({
   params,
@@ -49,8 +47,9 @@ export default async function Page({
 
         <div className="mt-8 flex w-full flex-col items-center">
           <h1 className="mb-1 truncate text-2xl">{data.name}</h1>
+
           <span className="text-sm text-content-nonessential">
-            {getFullDate(convertDateToTZ(data.dt, data.timezone))}
+            {getDay(data.dt)} at {getTimeFromDate(data.dt, data.timezone, true)}
           </span>
 
           <div className="mt-3 flex text-6xl font-black text-content-contrast">

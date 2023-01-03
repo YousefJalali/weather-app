@@ -1,5 +1,5 @@
 import { ForecastItemType } from '@/types/ForecastType'
-import { convertDateToTZ, getTime } from '@/utils/dateHelpers'
+import { getTimeFromTxt } from '@/utils/dateHelpers'
 import WeatherIcon from 'app/(home)/WeatherIcon'
 
 export default function HourlyForecast({
@@ -18,7 +18,7 @@ export default function HourlyForecast({
           className="flex w-12 flex-col items-center space-y-2"
         >
           <span className="text-xs text-content-subtle">
-            {getTime(convertDateToTZ(hourly.dt, hourly.timezone))}
+            {getTimeFromTxt(hourly.dt_txt)}
           </span>
 
           <WeatherIcon code={hourly.weather[0].icon} />
