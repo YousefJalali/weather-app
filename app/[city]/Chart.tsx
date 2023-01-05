@@ -1,16 +1,11 @@
 'use client'
 
 import {
-  LineChart,
-  Line,
   ResponsiveContainer,
   AreaChart,
   XAxis,
   YAxis,
-  CartesianGrid,
-  Tooltip,
   Area,
-  Bar,
   ReferenceDot,
   ReferenceLine,
   Label,
@@ -21,45 +16,90 @@ import {
   duration,
   getTimeFromDate,
 } from '@/utils/dateHelpers'
+import { sortBy } from 'lodash'
+import WeatherIcon from 'app/(home)/WeatherIcon'
+
+const CustomizedDot = ({
+  viewBox,
+  code,
+}: {
+  viewBox: { x: number; y: number }
+  code: string
+}) => {
+  const { x, y } = viewBox
+
+  return (
+    <WeatherIcon
+      x={x}
+      y={y}
+      width={32}
+      height={32}
+      // viewBox="15 11 26 26"
+      iconOnly
+      code={code}
+    />
+  )
+}
 
 export default function Chart({
   dt,
   sunset,
   sunrise,
   timezone,
+  code,
 }: {
   dt: number
   sunset: number
   sunrise: number
   timezone: number
+  code: string
 }) {
-  const sunriseTime = dateToNumber(sunrise, timezone)
-  const sunsetTime = dateToNumber(sunset, timezone)
+  // const sunriseTime = dateToNumber(sunrise, timezone)
+  // const sunsetTime = dateToNumber(sunset, timezone)
   const currentTime = dateToNumber(dt, timezone)
 
   // console.log({ sunriseTime }, { sunsetTime }, { currentTime })
 
-  const data = [
-    { name: 'start', x: 0, y: 0 },
-    { name: 'sunrise', x: sunriseTime, y: 12 },
-    { name: 'afternoon', x: 12, y: 24 },
-    { name: 'sunset', x: sunsetTime, y: 12 },
-    { name: 'end', x: 24, y: 0 },
-  ]
+  const data = sortBy(
+    [
+      { name: 'start', x: 0, y: -6 },
+      { name: 'sunrise', x: 6, y: 0 },
+      { name: 'afternoon', x: 12, y: 12 },
+      { name: 'sunset', x: 18, y: 0 },
+      { name: 'end', x: 24, y: -6 },
+    ],
+    'x'
+  )
+
+  const gradientOffset = () => {
+    const dataMax = Math.max(...data.map((i) => i.y))
+    const dataMin = Math.min(...data.map((i) => i.y))
+
+    if (dataMax <= 0) {
+      return 0
+    }
+    if (dataMin >= 0) {
+      return 1
+    }
+
+    return dataMax / (dataMax - dataMin)
+  }
+
+  const off = gradientOffset()
 
   return (
-    <div className="mt-4 h-fit w-full rounded-xl bg-layout-level2 p-4">
-      <div className="h-40">
+    <div className="mt-4 h-fit w-full rounded-xl bg-layout-level2 p-4 pt-6 pb-0">
+      <div className="h-32">
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart width={300} height={100} data={data}>
+          <AreaChart width={300} height={100} data={data}>
             {['sunset', 'sunrise'].map((ele) => (
               <ReferenceLine
                 key={ele}
                 className=" stroke-layout-divider"
                 strokeDasharray="3 3"
                 segment={[
-                  { x: ele === 'sunset' ? sunsetTime : sunriseTime, y: 18 },
-                  { x: ele === 'sunset' ? sunsetTime : sunriseTime, y: 12 },
+                  { x: ele === 'sunset' ? 18 : 6, y: 6 },
+                  { x: ele === 'sunset' ? 18 : 6, y: 0 },
                 ]}
               >
                 <Label
@@ -76,86 +116,49 @@ export default function Chart({
                   )}
                   offset={6}
                   position="top"
-                  className="stroke-content-default text-sm font-thin tracking-wider"
+                  className="stroke-content-default text-xs font-thin tracking-wider"
                 />
               </ReferenceLine>
             ))}
-
-            <ReferenceLine
-              y={12}
-              label="HORIZON"
-              strokeWidth={3}
-              className=" [&>*]:stroke-layout-level1accent [&>text]:stroke-brand-primary"
-            />
-
-            <ReferenceDot x="current" y={currentTime} label="MAX" />
 
             <XAxis dataKey="x" hide />
-            <YAxis dataKey="y" hide />
+            <YAxis dataKey="y" type="number" domain={[-12, 12]} hide />
 
-            <Tooltip />
-
-            <Line
-              type="monotone"
-              dataKey="y"
-              className="[&>*]:stroke-layout-level3accent"
-              // className="[&>*]:stroke-brand-primary [&>*]:drop-shadow-glow"
-              strokeWidth={3}
-              dot={false}
-            />
-          </LineChart>
-
-          {/* <AreaChart width={730} height={250} data={data}>
             <defs>
-              <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#5297FF" stopOpacity={0.8} />
-                <stop offset="95%" stopColor="#5297FF" stopOpacity={0} />
+              <linearGradient id="splitColor" x1="0" y1="0" x2="0" y2="1">
+                <stop offset={0} stopColor="#FFAC32" stopOpacity={1} />
+                <stop offset={off} stopColor="#FFAC32" stopOpacity={0} />
+                <stop offset={off} stopColor="#48484A" stopOpacity={0} />
+                <stop offset={1} stopColor="#48484A" stopOpacity={1} />
               </linearGradient>
             </defs>
-
-            <XAxis dataKey="name" hide />
-            <YAxis dataKey="y" hide />
-
-            <Tooltip />
-
-            {['sunset', 'sunrise'].map((ele) => (
-              <ReferenceLine
-                key={ele}
-                className=" stroke-layout-divider"
-                strokeDasharray="3 3"
-                segment={[
-                  { x: ele, y: 0 },
-                  { x: ele, y: 10 },
-                ]}
-              >
-                <Label
-                  value={ele}
-                  offset={4}
-                  position="top"
-                  className="text-xs font-thin"
-                />
-              </ReferenceLine>
-            ))}
-
-            <ReferenceLine
-              y={0}
-              label="HORIZON"
-              className="stroke-layout-divider"
-            />
-
             <Area
               type="monotone"
               dataKey="y"
-              className="  stroke-brand-primary"
-              fillOpacity={1}
-              fill="url(#colorUv)"
+              strokeWidth={1}
+              fill="url(#splitColor)"
+              stroke="#eee"
             />
-          </AreaChart> */}
+
+            {/* Reference weather icon */}
+            <XAxis xAxisId="main" domain={[0, 24]} type="number" hide />
+            <ReferenceDot
+              xAxisId="main"
+              x={currentTime}
+              y={
+                currentTime > 6 && currentTime < 18 ? currentTime : -currentTime
+              }
+              label={({ viewBox }) => (
+                <CustomizedDot viewBox={viewBox} code={code} />
+              )}
+              className="[&>circle]:fill-transparent [&>circle]:stroke-0"
+            />
+          </AreaChart>
         </ResponsiveContainer>
       </div>
 
-      <div className="mt-2 flex justify-between">
-        <div className="space-x-1 text-sm text-content-subtle">
+      {/* <div className="-mt-4"> */}
+      {/* <div className="space-x-1 text-sm text-content-subtle">
           <span>Day length:</span>
           <span className="text-content-default">
             {duration(
@@ -163,8 +166,8 @@ export default function Chart({
               convertDateToTZ(sunrise, timezone)
             )}
           </span>
-        </div>
-
+        </div> */}
+      {/* 
         <div className="space-x-1 text-sm text-content-subtle">
           <span>Remaining daylight:</span>
           <span className="text-content-default">
@@ -173,8 +176,8 @@ export default function Chart({
               convertDateToTZ(dt, timezone)
             )}
           </span>
-        </div>
-      </div>
+        </div> */}
+      {/* </div> */}
     </div>
   )
 }

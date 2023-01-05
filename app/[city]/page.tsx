@@ -68,6 +68,7 @@ export default async function Page({
             sunrise={data.sys.sunrise}
             sunset={data.sys.sunset}
             timezone={data.timezone}
+            code={data.weather[0].icon}
           />
 
           {/* @ts-expect-error Server Component */}

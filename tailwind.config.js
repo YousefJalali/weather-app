@@ -9,6 +9,7 @@ module.exports = {
   ],
   theme: {
     colors: {
+      transparent: 'transparent',
       brand: {
         primary: {
           DEFAULT: '#0066FF',
