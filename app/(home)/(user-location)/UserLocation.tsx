@@ -1,17 +1,17 @@
-'use client';
+'use client'
 
-import { getCityFromClient } from '@/lib/data';
-import { CityType } from '@/types/CityType';
-import { Card, CardSkeleton } from '@/ui/card';
-import { constructPath } from '@/utils/slugify';
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import RequestLocation from './RequestLocation';
+import { getCityFromClient } from '@/lib/data'
+import { CityType } from '@/types/CityType'
+import { Card } from '@/ui/card'
+import { constructPath } from '@/utils/slugify'
+import Link from 'next/link'
+import { useEffect, useState } from 'react'
+import RequestLocation from './RequestLocation'
 
 export default function UserLocation() {
-  const [loading, setLoading] = useState(false);
-  const [userCity, setUserCity] = useState<CityType | null>(null);
-  const [isPermissionDenied, setPermission] = useState(false);
+  const [loading, setLoading] = useState(false)
+  const [userCity, setUserCity] = useState<CityType | null>(null)
+  const [isPermissionDenied, setPermission] = useState(false)
 
   // useEffect(() => {
   //   const permissions = navigator.permissions;
@@ -46,34 +46,34 @@ export default function UserLocation() {
       (position) => {
         const {
           coords: { latitude, longitude },
-        } = position;
+        } = position
 
-        setLoading(true);
+        setLoading(true)
 
         getCityFromClient(`lat=${latitude}&lon=${longitude}`)
           .then((data) => {
-            setLoading(false);
+            setLoading(false)
 
-            setUserCity(data);
+            setUserCity(data)
           })
           .catch((error) => {
-            setLoading(false);
-            console.log(error);
-          });
+            setLoading(false)
+            console.log(error)
+          })
       },
       (error) => {
-        setLoading(false);
-        setPermission(true);
+        setLoading(false)
+        setPermission(true)
         console.log(
           '[error in navigator.geolocation.getCurrentPosition]: ',
           error
-        );
+        )
       }
-    );
+    )
 
   return loading ? (
     <section className="mb-4">
-      <CardSkeleton current />
+      <Card city={undefined} current />
     </section>
   ) : userCity ? (
     <section className="mb-4">
@@ -93,5 +93,5 @@ export default function UserLocation() {
       isPermissionDenied={isPermissionDenied}
       getLocation={getLocation}
     />
-  );
+  )
 }

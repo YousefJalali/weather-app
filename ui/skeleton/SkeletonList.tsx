@@ -1,22 +1,18 @@
 'use client'
 
-import styles from './Skeleton.module.css'
-
 export function SkeletonList({
   children,
   count,
-  spaceY = false,
+  className,
 }: {
   children: JSX.Element
   count: number
-  spaceY?: boolean
+  className?: string
 }) {
   return (
-    <ul className={styles.list}>
+    <ul className={className}>
       {new Array(count).fill(0).map((city, i) => (
-        <li key={i} className={spaceY ? styles.space_y : ''}>
-          {children}
-        </li>
+        <li key={i}>{children}</li>
       ))}
     </ul>
   )

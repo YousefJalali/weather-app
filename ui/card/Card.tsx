@@ -1,6 +1,7 @@
 import { CityType } from '@/types/CityType'
 import { FiNavigation, FiTrendingUp } from 'react-icons/fi'
 import WeatherIcon from 'app/(home)/WeatherIcon'
+import { ClientSkeleton } from '../skeleton'
 
 function Tag({
   current = false,
@@ -23,10 +24,34 @@ export function Card({
   current = false,
   popular = false,
 }: {
-  city: CityType
+  city: CityType | undefined
   current?: boolean
   popular?: boolean
 }) {
+  const name = city?.name || <ClientSkeleton width={128} />
+
+  const temp = (city && (
+    <>
+      <span className="text-5xl font-bold ">{Math.round(city.main.temp)}</span>
+      <span className="text-2xl">°</span>
+    </>
+  )) || <ClientSkeleton width={64} height={64} />
+
+  const icon = (city && (
+    <WeatherIcon className="h-20 w-20" code={city?.weather[0].icon} />
+  )) || <ClientSkeleton width={80} height={80} />
+
+  const description = city?.weather[0].description || (
+    <ClientSkeleton width={128} />
+  )
+
+  const lowHighTemp = (city && (
+    <>
+      L: {Math.round(city.main.temp_min)}° H:
+      {Math.round(city.main.temp_max)}°
+    </>
+  )) || <ClientSkeleton width={128} />
+
   return (
     <div className="select-none rounded-xl border border-layout-level0accent bg-layout-level1 p-4 ease-in active:scale-95">
       {current || popular ? <Tag current={current} popular={popular} /> : null}
@@ -34,29 +59,19 @@ export function Card({
       <div className="mb-3 flex justify-between text-content-contrast">
         <div className="max-w-[calc(100%-5rem)]">
           <span className="mb-3 block truncate text-xl font-semibold leading-tight">
-            {city.name}
+            {name}
           </span>
 
-          <div className="flex text-4xl leading-none">
-            <span className="text-5xl font-bold ">
-              {Math.round(city.main.temp)}
-            </span>
-            <span className="text-2xl">°</span>
-          </div>
+          <div className="flex text-4xl leading-none">{temp}</div>
         </div>
 
-        <WeatherIcon className="h-20 w-20" code={city.weather[0].icon} />
+        {icon}
       </div>
 
       <div className="flex justify-between text-sm">
-        <span className="capitalize text-content-subtle">
-          {city.weather[0].description}
-        </span>
+        <span className="capitalize text-content-subtle">{description}</span>
 
-        <span>
-          L: {Math.round(city.main.temp_min)}° H:
-          {Math.round(city.main.temp_max)}°
-        </span>
+        <span>{lowHighTemp}</span>
       </div>
     </div>
   )
