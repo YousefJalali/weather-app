@@ -1,6 +1,6 @@
-"use client";
+// "use client";
 
-import DetailsSkeleton from "./DetailsSkeleton";
+import DetailsSkeleton from './DetailsSkeleton'
 
 export default function Loading() {
   return (
@@ -24,5 +24,5 @@ export default function Loading() {
         <span className="sr-only">Loading...</span>
       </div>
     </div>
-  );
+  )
 }

@@ -35,7 +35,7 @@ export function Card({
       <span className="text-5xl font-bold ">{Math.round(city.main.temp)}</span>
       <span className="text-2xl">°</span>
     </>
-  )) || <ClientSkeleton width={64} height={64} />
+  )) || <ClientSkeleton width={48} height={48} />
 
   const icon = (city && (
     <WeatherIcon className="h-20 w-20" code={city?.weather[0].icon} />
@@ -54,7 +54,10 @@ export function Card({
 
   return (
     <div className="select-none rounded-xl border border-layout-level0accent bg-layout-level1 p-4 ease-in active:scale-95">
-      {current || popular ? <Tag current={current} popular={popular} /> : null}
+      {(city &&
+        (current || popular ? (
+          <Tag current={current} popular={popular} />
+        ) : null)) || <ClientSkeleton width={64} />}
 
       <div className="mb-3 flex justify-between text-content-contrast">
         <div className="max-w-[calc(100%-5rem)]">

@@ -1,23 +1,23 @@
-import Link from "next/link";
-import { SearchRecordType } from "@/types/SearchType";
-import { constructPath } from "@/utils/slugify";
+import Link from 'next/link'
+import { SearchRecordType } from '@/types/SearchType'
+import { constructPath } from '@/utils/slugify'
 
 export default function SearchResult({
   data,
   query,
 }: {
-  data: SearchRecordType;
-  query: string;
+  data: SearchRecordType
+  query: string
 }) {
   return (
     <ul className="divide-y divide-layout-level0accent">
       {data.map((city) => {
-        const name = `${city.fields.ascii_name}, ${city.fields.cou_name_en}`;
+        const name = `${city.fields.ascii_name}, ${city.fields.cou_name_en}`
 
         const displayName = name.replace(
-          new RegExp(query, "gi"),
+          new RegExp(query, 'gi'),
           (match) => `<mark class='text-content-contrast'>${match}</mark>`
-        );
+        )
 
         return (
           <li key={city.recordid}>
@@ -30,13 +30,13 @@ export default function SearchResult({
               )}`}
             >
               <span
-                className="block py-4 text-content-nonessential"
+                className="block truncate py-4 text-content-nonessential"
                 dangerouslySetInnerHTML={{ __html: displayName }}
               ></span>
             </Link>
           </li>
-        );
+        )
       })}
     </ul>
-  );
+  )
 }

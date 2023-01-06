@@ -133,6 +133,7 @@ export default function Chart({
               </linearGradient>
             </defs>
             <Area
+              isAnimationActive={false}
               type="monotone"
               dataKey="y"
               strokeWidth={1}

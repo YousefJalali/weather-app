@@ -9,7 +9,8 @@ import UserLocation from './(user-location)/UserLocation'
 import EmptyFavList from './EmptyFavList'
 
 const POPULAR_CITIES = [
-  'city=Doha&country=QA&lon=-9.5982&lat=30.4202',
+  'Doha?&country=QA&lat=25.28545&lon=51.53096',
+  'Agadir?&country=MA&lat=30.4202&lon=-9.5982',
   'Marrakesh?&country=MA&lat=31.63416&lon=-7.99994',
 ]
 
@@ -25,7 +26,7 @@ export default async function Page() {
 
   return (
     <>
-      {/* <UserLocation /> */}
+      <UserLocation />
 
       <section>
         <ul className="space-y-6">

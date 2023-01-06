@@ -1,7 +1,5 @@
 import '@/styles/globals.css'
-// import 'tw-elements'
 import { Poppins } from '@next/font/google'
-import Script from 'next/script'
 
 const font = Poppins({
   weight: ['100', '200', '400', '600', '700', '800'],
@@ -25,8 +23,6 @@ export default function RootLayout({
         <div className="font-xl md:font-2xl lg:font-3xl container mx-auto max-w-2xl bg-layout-level0 p-6 text-content-default">
           {children}
         </div>
-
-        <Script src="./node_modules/tw-elements/dist/js/index.min.js" />
       </body>
     </html>
   )

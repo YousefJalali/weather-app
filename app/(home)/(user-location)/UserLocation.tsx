@@ -9,89 +9,63 @@ import { useEffect, useState } from 'react'
 import RequestLocation from './RequestLocation'
 
 export default function UserLocation() {
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<'denied' | 'fetch' | null>(null)
   const [userCity, setUserCity] = useState<CityType | null>(null)
-  const [isPermissionDenied, setPermission] = useState(false)
 
-  // useEffect(() => {
-  //   const permissions = navigator.permissions;
+  const getLocation = () => {
+    setLoading(true)
+    setError(null)
 
-  //   if (!permissions) {
-  //     setLoading(false);
-  //     return;
-  //   }
-
-  //   permissions
-  //     ?.query({ name: 'geolocation' })
-  //     .then((res) => {
-  //       if (res.state === 'granted') {
-  //         getLocation();
-  //         return;
-  //       }
-
-  //       setLoading(false);
-
-  //       if (res.state === 'denied') {
-  //         setPermission(true);
-  //         return;
-  //       }
-  //     })
-  //     .catch((error) =>
-  //       console.log('[error in navigator.permissions.query]: ', error)
-  //     );
-  // }, []);
-
-  const getLocation = () =>
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const {
           coords: { latitude, longitude },
         } = position
 
-        setLoading(true)
-
         getCityFromClient(`lat=${latitude}&lon=${longitude}`)
           .then((data) => {
             setLoading(false)
-
             setUserCity(data)
           })
           .catch((error) => {
             setLoading(false)
+            setError('fetch')
             console.log(error)
           })
       },
-      (error) => {
+      //denied
+      () => {
         setLoading(false)
-        setPermission(true)
-        console.log(
-          '[error in navigator.geolocation.getCurrentPosition]: ',
-          error
-        )
+        setError('denied')
       }
     )
+  }
 
-  return loading ? (
+  useEffect(() => {
+    getLocation()
+  }, [])
+
+  return error ? (
+    <RequestLocation error={error} getLocation={getLocation} />
+  ) : loading ? (
     <section className="mb-4">
       <Card city={undefined} current />
     </section>
-  ) : userCity ? (
-    <section className="mb-4">
-      <Link
-        href={`/${constructPath(
-          userCity.name,
-          userCity.sys.country,
-          userCity.coord.lat,
-          userCity.coord.lon
-        )}`}
-      >
-        <Card city={userCity} current />
-      </Link>
-    </section>
   ) : (
-    <RequestLocation
-      isPermissionDenied={isPermissionDenied}
-      getLocation={getLocation}
-    />
+    userCity && (
+      <section className="mb-4">
+        <Link
+          href={`/${constructPath(
+            userCity.name,
+            userCity.sys.country,
+            userCity.coord.lat,
+            userCity.coord.lon
+          )}`}
+        >
+          <Card city={userCity} current />
+        </Link>
+      </section>
+    )
   )
 }
