@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation'
 import { useCookies } from 'react-cookie'
-import { FiBookmark, FiCheck, FiHeart, FiPlus } from 'react-icons/fi'
+import { FiBookmark } from 'react-icons/fi'
 
 function Button({ isAdded = false, ...props }) {
   const style = isAdded ? 'fill-utility-rating text-utility-rating' : ''
@@ -11,23 +11,6 @@ function Button({ isAdded = false, ...props }) {
       <FiBookmark className={`h-6 w-6 ${style}`} />
     </button>
   )
-  // return (
-  //   <button
-  //     className={`focus:ring-3 absolute top-0 right-0 inline-flex items-center rounded-lg px-3 py-2 text-center text-xs  font-medium focus:outline-none focus:ring-brand-primary-200 ${
-  //       isAdded
-  //         ? 'bg-brand-primary text-layout-level0 hover:bg-brand-primary-800'
-  //         : 'bg-brand-primary-200 text-brand-primary hover:bg-brand-primary-200'
-  //     }`}
-  //     {...props}
-  //   >
-  //     {isAdded ? 'Added to list' : 'Add to list'}
-  //     {isAdded ? (
-  //       <FiCheck className="ml-2 -mr-1 h-5 w-5" />
-  //     ) : (
-  //       <FiPlus className="ml-2 -mr-1 h-5 w-5" />
-  //     )}
-  //   </button>
-  // )
 }
 
 export default function AddButton({ city }: { city: string }) {

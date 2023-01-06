@@ -17,8 +17,11 @@ const POPULAR_CITIES = [
 export default async function Page() {
   const nextCookies = cookies()
   const favCities = nextCookies.get('fav-cities')
+  const userLocationCookie = nextCookies.get('user-location')
 
   const isCookieExist = favCities && JSON.parse(favCities.value).length > 0
+  const isUserLocationDismissed =
+    userLocationCookie && JSON.parse(userLocationCookie.value).length > 0
 
   const fetchedCities: CityType[] = await getCities(
     isCookieExist ? cookieToQuery(favCities.value) : POPULAR_CITIES
@@ -26,7 +29,7 @@ export default async function Page() {
 
   return (
     <>
-      <UserLocation />
+      {!isUserLocationDismissed && <UserLocation />}
 
       <section>
         <ul className="space-y-6">
