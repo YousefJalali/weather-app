@@ -1,12 +1,10 @@
-import Link from 'next/link'
 import { CityType } from '@/types/CityType'
-import { Card } from '@/ui/card'
-import { constructPath } from '@/utils/slugify'
 import { cookies } from 'next/headers'
 import { getCities } from '@/lib/data'
 import { cookieToQuery } from '@/utils/slugify'
 import UserLocation from './(user-location)/UserLocation'
-import EmptyFavList from './EmptyFavList'
+import CityItem from './CityItem'
+import Forecast from 'app/(city-details)/(forecast)/Forecast'
 
 const POPULAR_CITIES = [
   'Doha?&country=QA&lat=25.28545&lon=51.53096',
@@ -33,24 +31,24 @@ export default async function Page() {
 
       <section>
         <ul className="space-y-6">
-          {fetchedCities.length <= 0 ? (
-            <EmptyFavList />
-          ) : (
-            fetchedCities.map((city) => (
-              <li key={city.id}>
-                <Link
-                  href={`/${constructPath(
-                    city.name,
-                    city.sys.country,
-                    city.coord.lat,
-                    city.coord.lon
-                  )}`}
-                >
-                  <Card city={city} popular={!isCookieExist} />
-                </Link>
-              </li>
-            ))
-          )}
+          {fetchedCities.map((city) => (
+            <li key={city.id}>
+              <CityItem
+                city={city}
+                tag={!isCookieExist}
+                forecast={
+                  /* 
+                  // @ts-expect-error Server Component */
+                  <Forecast
+                    coords={{
+                      lat: city.coord.lat.toString(),
+                      lon: city.coord.lon.toString(),
+                    }}
+                  />
+                }
+              />
+            </li>
+          ))}
         </ul>
       </section>
     </>

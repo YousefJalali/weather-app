@@ -4,7 +4,7 @@ import { ForecastItemType } from '@/types/ForecastType'
 
 import { getDate, getDay } from '@/utils/dateHelpers'
 
-import WeatherIcon from 'app/(home)/WeatherIcon'
+import { WeatherIcon } from '@/ui/weather-icon'
 import HourlyForecast from './HourlyForecast'
 import {
   Accordion,

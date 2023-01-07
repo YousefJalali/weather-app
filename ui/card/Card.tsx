@@ -1,6 +1,6 @@
 import { CityType } from '@/types/CityType'
 import { FiNavigation, FiTrendingUp } from 'react-icons/fi'
-import WeatherIcon from 'app/(home)/WeatherIcon'
+import { WeatherIcon } from '@/ui/weather-icon'
 import { ClientSkeleton } from '../skeleton'
 
 function Tag({

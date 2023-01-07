@@ -1,7 +1,7 @@
 import * as WeatherIcons from '@/ui/illustrations'
 import { SVGProps } from 'react'
 
-const WeatherIcon = ({
+export const WeatherIcon = ({
   code,
   className,
   iconOnly,
@@ -28,5 +28,3 @@ const WeatherIcon = ({
     </div>
   )
 }
-
-export default WeatherIcon

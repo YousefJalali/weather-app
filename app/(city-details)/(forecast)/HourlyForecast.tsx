@@ -1,6 +1,6 @@
 import { ForecastItemType } from '@/types/ForecastType'
 import { getTimeFromTxt } from '@/utils/dateHelpers'
-import WeatherIcon from 'app/(home)/WeatherIcon'
+import { WeatherIcon } from '@/ui/weather-icon/'
 
 export default function HourlyForecast({
   forecast,

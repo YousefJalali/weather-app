@@ -17,7 +17,7 @@ import {
   getTimeFromDate,
 } from '@/utils/dateHelpers'
 import { sortBy } from 'lodash'
-import WeatherIcon from 'app/(home)/WeatherIcon'
+import { WeatherIcon } from '@/ui/weather-icon/'
 
 const CustomizedDot = ({
   viewBox,
