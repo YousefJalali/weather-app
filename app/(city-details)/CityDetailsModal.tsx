@@ -1,37 +1,37 @@
 'use client'
 
 import { CityType } from '@/types/CityType'
-import { Card } from '@/ui/card'
 import { Modal } from '@/ui/modal'
-import { constructPath } from '@/utils/slugify'
 import CityDetails from 'app/(city-details)/CityDetails'
 import { ReactNode, useState } from 'react'
 
-export default function CityItem({
+export default function CityDetailsModal({
+  children,
   city,
-  tag,
+  query,
   forecast,
 }: {
+  children: ReactNode
   city: CityType
-  tag: boolean
+  query: string
   forecast?: ReactNode
 }) {
   const [modal, showModal] = useState(false)
 
-  const path = `/${constructPath(
-    city.name,
-    city.sys.country,
-    city.coord.lat,
-    city.coord.lon
-  )}`
+  // const path = `/${constructPath(
+  //   city.name,
+  //   city.sys.country,
+  //   city.coord.lat,
+  //   city.coord.lon
+  // )}`
 
   const openHandler = () => {
     showModal(true)
     // router.push(path, undefined, { shallow: true })
     window.history.replaceState(
-      { ...window.history.state, as: '/', url: path },
+      { ...window.history.state, as: '/', url: query },
       '',
-      path
+      query
     )
   }
 
@@ -47,13 +47,11 @@ export default function CityItem({
 
   return (
     <>
-      <a onClick={openHandler}>
-        <Card city={city} popular={tag} />
-      </a>
+      <a onClick={openHandler}>{children}</a>
 
       {modal && (
         <Modal clearModal={closeHandler}>
-          <CityDetails city={city} forecast={forecast} query={path} />
+          <CityDetails city={city} forecast={forecast} query={query} />
         </Modal>
       )}
     </>

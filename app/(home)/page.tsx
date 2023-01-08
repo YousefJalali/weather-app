@@ -2,8 +2,10 @@ import { CityType } from '@/types/CityType'
 import { cookies } from 'next/headers'
 import { getCities } from '@/lib/data'
 import UserLocation from './(user-location)/UserLocation'
-import CityItem from './CityItem'
 import Forecast from 'app/(city-details)/(forecast)/Forecast'
+import CityDetailsModal from 'app/(city-details)/CityDetailsModal'
+import { Card } from '@/ui/card'
+import { queryFromCityObject } from '@/utils/index'
 
 const POPULAR_CITIES = [
   'Doha?&country=QA&lat=25.28545&lon=51.53096',
@@ -30,24 +32,30 @@ export default async function Page() {
 
       <section>
         <ul className="space-y-6">
-          {fetchedCities.map((city) => (
-            <li key={city.id}>
-              <CityItem
-                city={city}
-                tag={!isCookieExist}
-                forecast={
-                  /* 
-                  // @ts-expect-error Server Component */
-                  <Forecast
-                    coords={{
-                      lat: city.coord.lat.toString(),
-                      lon: city.coord.lon.toString(),
-                    }}
-                  />
-                }
-              />
-            </li>
-          ))}
+          {fetchedCities.map((city) => {
+            const query = queryFromCityObject(city)
+
+            return (
+              <li key={city.id}>
+                <CityDetailsModal
+                  city={city}
+                  query={query}
+                  forecast={
+                    /* 
+                    // @ts-expect-error Server Component */
+                    <Forecast
+                      coords={{
+                        lat: city.coord.lat.toString(),
+                        lon: city.coord.lon.toString(),
+                      }}
+                    />
+                  }
+                >
+                  <Card city={city} popular={!isCookieExist} />
+                </CityDetailsModal>
+              </li>
+            )
+          })}
         </ul>
       </section>
     </>
