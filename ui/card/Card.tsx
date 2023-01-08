@@ -54,10 +54,11 @@ export function Card({
 
   return (
     <div className="select-none rounded-xl border border-layout-level0accent bg-layout-level1 p-4 ease-in active:scale-95">
-      {(city &&
-        (current || popular ? (
-          <Tag current={current} popular={popular} />
-        ) : null)) || <ClientSkeleton width={64} />}
+      {!city ? (
+        <ClientSkeleton width={64} />
+      ) : current || popular ? (
+        <Tag current={current} popular={popular} />
+      ) : null}
 
       <div className="mb-3 flex justify-between text-content-contrast">
         <div className="max-w-[calc(100%-5rem)]">

@@ -2,7 +2,6 @@ import { WeatherIcon } from '@/ui/weather-icon'
 import AddButton from './AddButton'
 import Chart from './Chart'
 import WeatherDetails from './WeatherDetails'
-// import Forecast from './(forecast)/Forecast'
 import { CityType } from '@/types/CityType'
 import { getDay, getTimeFromDate } from '@/utils/dateHelpers'
 import { ReactNode } from 'react'
@@ -10,13 +9,15 @@ import { ReactNode } from 'react'
 export default function CityDetails({
   city,
   forecast,
+  query,
 }: {
   city: CityType
+  query: string
   forecast?: ReactNode
 }) {
   return (
     <>
-      {/* <AddButton city={JSON.stringify(cookie)} /> */}
+      <AddButton query={query} />
 
       <div className="mt-6 flex w-full flex-col items-center">
         <WeatherIcon className="h-24 w-24" code={city.weather[0].icon} />
@@ -48,13 +49,6 @@ export default function CityDetails({
           />
 
           {forecast}
-
-          {/* <Forecast
-            coords={{
-              lon: city.coord.lon.toString(),
-              lat: city.coord.lat.toString(),
-            }}
-          /> */}
         </div>
       </div>
     </>

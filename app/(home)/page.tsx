@@ -1,7 +1,6 @@
 import { CityType } from '@/types/CityType'
 import { cookies } from 'next/headers'
 import { getCities } from '@/lib/data'
-import { cookieToQuery } from '@/utils/slugify'
 import UserLocation from './(user-location)/UserLocation'
 import CityItem from './CityItem'
 import Forecast from 'app/(city-details)/(forecast)/Forecast'
@@ -22,7 +21,7 @@ export default async function Page() {
     userLocationCookie && JSON.parse(userLocationCookie.value).length > 0
 
   const fetchedCities: CityType[] = await getCities(
-    isCookieExist ? cookieToQuery(favCities.value) : POPULAR_CITIES
+    isCookieExist ? JSON.parse(favCities.value) : POPULAR_CITIES
   )
 
   return (

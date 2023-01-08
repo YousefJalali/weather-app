@@ -53,7 +53,7 @@ export default function CityItem({
 
       {modal && (
         <Modal clearModal={closeHandler}>
-          <CityDetails city={city} forecast={forecast} />
+          <CityDetails city={city} forecast={forecast} query={path} />
         </Modal>
       )}
     </>

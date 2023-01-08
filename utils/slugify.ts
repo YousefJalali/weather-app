@@ -24,6 +24,7 @@ export function constructQuery(
 }
 
 export function cookieToQuery(cookie: string) {
+  console.log(cookie)
   return JSON.parse(cookie).map((city: string) => {
     const item = JSON.parse(city)
 

@@ -13,29 +13,22 @@ export default async function Page({
   params: { city: string }
   searchParams: { country: string; lat: number; lon: number }
 }) {
-  const data: CityType = await getCity(
-    constructQuery(
-      params.city,
-      searchParams.country,
-      searchParams.lat,
-      searchParams.lon
-    )
+  const query = constructQuery(
+    params.city,
+    searchParams.country,
+    searchParams.lat,
+    searchParams.lon
   )
+  const data: CityType = await getCity(query)
 
   if (!data) {
     notFound()
   }
 
-  const cookie = {
-    city: params.city,
-    country: searchParams.country,
-    lat: searchParams.lat,
-    lon: searchParams.lon,
-  }
-
   return (
     <CityDetails
       city={data}
+      query={query}
       forecast={
         /* 
         // @ts-expect-error Server Component */

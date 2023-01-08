@@ -19,7 +19,7 @@ export function Modal({
       className="fixed top-0 left-0 z-30  h-screen w-screen overflow-x-hidden overflow-y-scroll bg-layout-level0 p-6"
       style={{ height }}
     >
-      <div className="container mx-auto max-w-2xl">
+      <div className="container relative mx-auto max-w-2xl">
         <header className="mb-4 flex items-center justify-between text-2xl">
           <a onClick={clearModal}>
             <FiArrowLeft />
