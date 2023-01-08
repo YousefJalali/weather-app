@@ -20,8 +20,8 @@ export const WeatherIcon = ({
     <Icon {...props} />
   ) : (
     <div
-      className={`h-5 w-5 [&>svg]:h-full [&>svg]:w-full [&>svg]:overflow-visible ${
-        className ? className : ''
+      className={`[&>svg]:h-full [&>svg]:w-full [&>svg]:overflow-visible ${
+        className ? className : 'h-5 w-5'
       }`}
     >
       <Icon />
