@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation'
 
 import { getCity } from '@/lib/data'
 import { CityType } from '@/types/CityType'
-import { constructQuery } from '@/utils/slugify'
+import { getFetchQuery, getQueryPath } from '@/utils/queryHelpers'
 import CityDetails from 'app/(city-details)/CityDetails'
 import Forecast from 'app/(city-details)/(forecast)/Forecast'
 
@@ -13,13 +13,14 @@ export default async function Page({
   params: { city: string }
   searchParams: { country: string; lat: number; lon: number }
 }) {
-  const query = constructQuery(
-    params.city,
-    searchParams.country,
-    searchParams.lat,
-    searchParams.lon
-  )
-  const data: CityType = await getCity(query)
+  const queryPath = getQueryPath({
+    city: params.city,
+    countryCode: searchParams.country,
+    lat: searchParams.lat,
+    lon: searchParams.lon,
+  })
+
+  const data: CityType = await getCity(getFetchQuery(queryPath))
 
   if (!data) {
     notFound()
@@ -28,7 +29,7 @@ export default async function Page({
   return (
     <CityDetails
       city={data}
-      query={query}
+      queryPath={queryPath}
       forecast={
         /* 
         // @ts-expect-error Server Component */

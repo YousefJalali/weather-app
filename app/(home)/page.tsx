@@ -5,7 +5,7 @@ import UserLocation from './(user-location)/UserLocation'
 import Forecast from 'app/(city-details)/(forecast)/Forecast'
 import CityDetailsModal from 'app/(city-details)/CityDetailsModal'
 import { Card } from '@/ui/card'
-import { queryFromCityObject } from '@/utils/index'
+import { getQueryPath } from '@/utils/queryHelpers'
 
 const POPULAR_CITIES = [
   'Doha?&country=QA&lat=25.28545&lon=51.53096',
@@ -33,13 +33,18 @@ export default async function Page() {
       <section>
         <ul className="space-y-6">
           {fetchedCities.map((city) => {
-            const query = queryFromCityObject(city)
+            const queryPath = getQueryPath({
+              city: city.name,
+              countryCode: city.sys.country,
+              lat: city.coord.lat,
+              lon: city.coord.lon,
+            })
 
             return (
               <li key={city.id}>
                 <CityDetailsModal
                   city={city}
-                  query={query}
+                  queryPath={queryPath}
                   forecast={
                     /* 
                     // @ts-expect-error Server Component */

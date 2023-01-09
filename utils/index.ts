@@ -1,3 +1,2 @@
 export * from './dateHelpers'
-export * from './queryFromCityObject'
-export * from './slugify'
+export * from './queryHelpers'

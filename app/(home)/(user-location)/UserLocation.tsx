@@ -3,7 +3,7 @@
 import { getCityFromClient } from '@/lib/data'
 import { CityType } from '@/types/CityType'
 import { Card } from '@/ui/card'
-import { constructPath } from '@/utils/slugify'
+import { getQueryPath } from '@/utils/queryHelpers'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import RequestLocation from './RequestLocation'
@@ -56,12 +56,12 @@ export default function UserLocation() {
     userCity && (
       <section className="mb-4">
         <Link
-          href={`/${constructPath(
-            userCity.name,
-            userCity.sys.country,
-            userCity.coord.lat,
-            userCity.coord.lon
-          )}`}
+          href={getQueryPath({
+            city: userCity.name,
+            countryCode: userCity.sys.country,
+            lat: userCity.coord.lat,
+            lon: userCity.coord.lon,
+          })}
         >
           <Card city={userCity} current />
         </Link>

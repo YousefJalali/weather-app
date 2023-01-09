@@ -3,35 +3,45 @@
 import { CityType } from '@/types/CityType'
 import { Modal } from '@/ui/modal'
 import CityDetails from 'app/(city-details)/CityDetails'
-import { ReactNode, useState } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
+import { getCityFromClient } from '@/lib/data'
+import { getFetchQuery } from '@/utils/queryHelpers'
 
 export default function CityDetailsModal({
   children,
   city,
-  query,
+  queryPath,
   forecast,
 }: {
   children: ReactNode
-  city: CityType
-  query: string
+  city: CityType | undefined
+  queryPath: string
   forecast?: ReactNode
 }) {
   const [modal, showModal] = useState(false)
+  const [cityData, setCityData] = useState(city)
 
-  // const path = `/${constructPath(
-  //   city.name,
-  //   city.sys.country,
-  //   city.coord.lat,
-  //   city.coord.lon
-  // )}`
+  const fetchCity = async () => {
+    const fetchQuery = getFetchQuery(queryPath)
+
+    const data: CityType = await getCityFromClient(fetchQuery)
+
+    setCityData(data)
+  }
+
+  useEffect(() => {
+    if (!city) {
+      fetchCity()
+    }
+  }, [city])
 
   const openHandler = () => {
     showModal(true)
     // router.push(path, undefined, { shallow: true })
     window.history.replaceState(
-      { ...window.history.state, as: '/', url: query },
+      { ...window.history.state, as: '/', url: queryPath },
       '',
-      query
+      queryPath
     )
   }
 
@@ -51,7 +61,11 @@ export default function CityDetailsModal({
 
       {modal && (
         <Modal clearModal={closeHandler}>
-          <CityDetails city={city} forecast={forecast} query={query} />
+          <CityDetails
+            city={cityData}
+            forecast={forecast}
+            queryPath={queryPath}
+          />
         </Modal>
       )}
     </>

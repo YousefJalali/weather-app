@@ -13,7 +13,7 @@ function Button({ isAdded = false, ...props }) {
   )
 }
 
-export default function AddButton({ query }: { query: string }) {
+export default function AddButton({ queryPath }: { queryPath: string }) {
   const { refresh } = useRouter()
 
   const [cookie, setCookie] = useCookies(['fav-cities'])
@@ -21,7 +21,7 @@ export default function AddButton({ query }: { query: string }) {
   const existingCookie = cookie['fav-cities'] || []
 
   const addHandler = () => {
-    const updatedCookie = [...existingCookie, query]
+    const updatedCookie = [...existingCookie, queryPath]
 
     setCookie('fav-cities', JSON.stringify(updatedCookie), {
       path: '/',
@@ -35,7 +35,9 @@ export default function AddButton({ query }: { query: string }) {
   const removeHandler = () => {
     setCookie(
       'fav-cities',
-      JSON.stringify(cookie['fav-cities'].filter((ex: string) => ex !== query)),
+      JSON.stringify(
+        cookie['fav-cities'].filter((ex: string) => ex !== queryPath)
+      ),
       {
         path: '/',
         maxAge: 3600, // Expires after 1hr
@@ -46,7 +48,7 @@ export default function AddButton({ query }: { query: string }) {
     refresh()
   }
 
-  return existingCookie.includes(query) ? (
+  return existingCookie.includes(queryPath) ? (
     <Button isAdded onClick={removeHandler} />
   ) : (
     <Button onClick={addHandler} />

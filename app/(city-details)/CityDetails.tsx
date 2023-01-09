@@ -10,10 +10,10 @@ import WeatherDetails from './WeatherDetails'
 export default function CityDetails({
   city,
   forecast,
-  query,
+  queryPath,
 }: {
   city: CityType | undefined
-  query?: string
+  queryPath?: string
   forecast?: ReactNode
 }) {
   const content = useMemo(
@@ -43,7 +43,7 @@ export default function CityDetails({
 
   return (
     <>
-      {query && <AddButton query={query} />}
+      {queryPath && <AddButton queryPath={queryPath} />}
 
       <div className="mt-6 flex w-full flex-col items-center">
         {content.icon}

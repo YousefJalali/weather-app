@@ -1,12 +1,13 @@
 import Link from 'next/link'
 import { SearchRecordType } from '@/types/SearchType'
-import { constructPath } from '@/utils/slugify'
+import CityDetailsModal from 'app/(city-details)/CityDetailsModal'
+import { getQueryPath } from '@/utils/queryHelpers'
 
 export default function SearchResult({
   data,
   query,
 }: {
-  data: SearchRecordType
+  data: SearchRecordType[]
   query: string
 }) {
   return (
@@ -19,21 +20,23 @@ export default function SearchResult({
           (match) => `<mark class='text-content-contrast'>${match}</mark>`
         )
 
+        const queryPath = getQueryPath({
+          city: city.fields.name,
+          countryCode: city.fields.country_code,
+          lat: city.fields.coordinates[0],
+          lon: city.fields.coordinates[1],
+        })
+
         return (
           <li key={city.recordid}>
-            <Link
-              href={`/${constructPath(
-                city.fields.name,
-                city.fields.country_code,
-                city.fields.coordinates[0],
-                city.fields.coordinates[1]
-              )}`}
-            >
+            <CityDetailsModal city={undefined} queryPath={queryPath}>
               <span
                 className="block truncate py-4 text-content-nonessential"
                 dangerouslySetInnerHTML={{ __html: displayName }}
               ></span>
-            </Link>
+            </CityDetailsModal>
+
+            {/* </Link> */}
           </li>
         )
       })}
