@@ -6,42 +6,37 @@ import {
   XAxis,
   YAxis,
   Area,
-  ReferenceDot,
+  // ReferenceDot,
   ReferenceLine,
   Label,
 } from 'recharts'
-import {
-  convertDateToTZ,
-  dateToNumber,
-  duration,
-  getTimeFromDate,
-} from '@/utils/dateHelpers'
+import { getTimeFromDate } from '@/utils/dateHelpers'
 import { sortBy } from 'lodash'
-import { WeatherIcon } from '@/ui/weather-icon/'
+// import { WeatherIcon } from '@/ui/weather-icon/'
 import { CityType } from '@/types/CityType'
 import { ClientSkeleton } from '@/ui/skeleton'
 
-const CustomizedDot = ({
-  viewBox,
-  code,
-}: {
-  viewBox: { x: number; y: number }
-  code: string
-}) => {
-  const { x, y } = viewBox
+// const CustomizedDot = ({
+//   viewBox,
+//   code,
+// }: {
+//   viewBox: { x: number; y: number }
+//   code: string
+// }) => {
+//   const { x, y } = viewBox
 
-  return (
-    <WeatherIcon
-      x={x}
-      y={y}
-      width={32}
-      height={32}
-      // viewBox="15 11 26 26"
-      iconOnly
-      code={code}
-    />
-  )
-}
+//   return (
+//     <WeatherIcon
+//       x={x}
+//       y={y}
+//       width={32}
+//       height={32}
+//       // viewBox="15 11 26 26"
+//       iconOnly
+//       code={code}
+//     />
+//   )
+// }
 
 export default function Chart({ city }: { city: CityType | undefined }) {
   const data = sortBy(
@@ -127,7 +122,7 @@ export default function Chart({ city }: { city: CityType | undefined }) {
               />
 
               {/* Reference weather icon */}
-              <XAxis xAxisId="main" domain={[0, 24]} type="number" hide />
+              {/* <XAxis xAxisId="main" domain={[0, 24]} type="number" hide />
               <ReferenceDot
                 xAxisId="main"
                 x={dateToNumber(city.dt, city.timezone)}
@@ -144,33 +139,11 @@ export default function Chart({ city }: { city: CityType | undefined }) {
                   />
                 )}
                 className="[&>circle]:fill-transparent [&>circle]:stroke-0"
-              />
+              /> */}
             </AreaChart>
           </ResponsiveContainer>
         )) || <ClientSkeleton />}
       </div>
-
-      {/* <div className="-mt-4"> */}
-      {/* <div className="space-x-1 text-sm text-content-subtle">
-          <span>Day length:</span>
-          <span className="text-content-default">
-            {duration(
-              convertDateToTZ(sunset, timezone),
-              convertDateToTZ(sunrise, timezone)
-            )}
-          </span>
-        </div> */}
-      {/* 
-        <div className="space-x-1 text-sm text-content-subtle">
-          <span>Remaining daylight:</span>
-          <span className="text-content-default">
-            {duration(
-              convertDateToTZ(sunset, timezone),
-              convertDateToTZ(dt, timezone)
-            )}
-          </span>
-        </div> */}
-      {/* </div> */}
     </div>
   )
 }
