@@ -3,7 +3,7 @@
 import { CityType } from '@/types/CityType'
 import { Modal } from '@/ui/modal'
 import CityDetails from 'app/(city-details)/CityDetails'
-import { ReactNode, useEffect, useState } from 'react'
+import { ReactNode, useCallback, useEffect, useState } from 'react'
 import { getCityFromClient } from '@/lib/data'
 import { getFetchQuery } from '@/utils/queryHelpers'
 
@@ -22,45 +22,38 @@ export default function CityDetailsModal({
   const [cityData, setCityData] = useState(city)
 
   const fetchCity = async () => {
-    const fetchQuery = getFetchQuery(queryPath)
-
-    const data: CityType = await getCityFromClient(fetchQuery)
-
-    setCityData(data)
+    setCityData(await getCityFromClient(getFetchQuery(queryPath)))
   }
 
   useEffect(() => {
-    if (!city) {
+    if (!city && modal) {
       fetchCity()
     }
-  }, [city])
+  }, [city, modal])
 
-  const openHandler = () => {
-    showModal(true)
-    // router.push(path, undefined, { shallow: true })
-    window.history.replaceState(
-      { ...window.history.state, as: '/', url: queryPath },
-      '',
-      queryPath
-    )
-  }
+  const toggleHandler = useCallback(
+    (status: 'close' | 'open') => {
+      showModal(status === 'open' ? true : false)
 
-  const closeHandler = () => {
-    showModal(false)
-
-    window.history.replaceState(
-      { ...window.history.state, as: '/', url: '/' },
-      '',
-      '/'
-    )
-  }
+      window.history.replaceState(
+        {
+          ...window.history.state,
+          as: '/',
+          url: status === 'open' ? queryPath : '/',
+        },
+        '',
+        status === 'open' ? queryPath : '/'
+      )
+    },
+    [queryPath]
+  )
 
   return (
     <>
-      <a onClick={openHandler}>{children}</a>
+      <a onClick={() => toggleHandler('open')}>{children}</a>
 
       {modal && (
-        <Modal clearModal={closeHandler}>
+        <Modal clearModal={() => toggleHandler('close')}>
           <CityDetails
             city={cityData}
             forecast={forecast}
