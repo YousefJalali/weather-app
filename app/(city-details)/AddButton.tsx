@@ -8,7 +8,7 @@ function Button({ isAdded = false, ...props }) {
   const style = isAdded ? 'fill-utility-rating text-utility-rating' : ''
   return (
     <button
-      className="absolute top-0 right-0 -mr-3 -mt-3 rounded-full p-3 active:bg-layout-level0accent"
+      className="absolute top-0 right-0 -mr-3 -mt-3 rounded-full p-3 hover:bg-layout-level0accent active:bg-layout-level1accent"
       {...props}
     >
       <FiBookmark className={`h-6 w-6 ${style}`} />

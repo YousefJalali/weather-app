@@ -14,19 +14,11 @@ export function Accordion({
 }) {
   return (
     <AccordionCtxProvider>
-      <motion.div
-        className={className}
-        layout
-        transition={{
-          type: 'spring',
-          stiffness: 700,
-          damping: 30,
-        }}
-      >
+      <div className={className}>
         {Children.map(children, (child, i) =>
           cloneElement(child, { index: i })
         )}
-      </motion.div>
+      </div>
     </AccordionCtxProvider>
   )
 }
@@ -65,10 +57,10 @@ export function AccordionTitle({
     >
       {children}
 
-      <div className="ml-4">
-        <FiChevronUp
-          className={`${open === index ? '' : 'rotate-180'} transition-all`}
-        />
+      <div
+        className={`${open === index ? '' : 'rotate-180'} ml-4 transition-all`}
+      >
+        <FiChevronUp />
       </div>
     </div>
   )
@@ -93,7 +85,7 @@ export function AccordionContent({
           initial={{ height: 0 }}
           animate={{ height: 'fit-content' }}
           exit={{ height: 0 }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.2 }}
         >
           {children}
         </motion.div>

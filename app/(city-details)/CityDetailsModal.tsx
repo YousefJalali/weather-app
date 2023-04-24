@@ -6,6 +6,7 @@ import CityDetails from 'app/(city-details)/CityDetails'
 import { ReactNode, useCallback, useEffect, useState } from 'react'
 import { getCityFromClient } from '@/lib/data'
 import { getFetchQuery } from '@/utils/queryHelpers'
+import { AnimatePresence } from 'framer-motion'
 
 export default function CityDetailsModal({
   children,
@@ -52,15 +53,17 @@ export default function CityDetailsModal({
     <>
       <a onClick={() => toggleHandler('open')}>{children}</a>
 
-      {modal && (
-        <Modal clearModal={() => toggleHandler('close')}>
-          <CityDetails
-            city={cityData}
-            forecast={forecast}
-            queryPath={queryPath}
-          />
-        </Modal>
-      )}
+      <AnimatePresence>
+        {modal && (
+          <Modal clearModal={() => toggleHandler('close')}>
+            <CityDetails
+              city={cityData}
+              forecast={forecast}
+              queryPath={queryPath}
+            />
+          </Modal>
+        )}
+      </AnimatePresence>
     </>
   )
 }
