@@ -22,13 +22,12 @@ export default function DismissLocation() {
   return (
     <button
       type="button"
-      className="bg-white text-gray-400 hover:text-gray-900 focus:ring-gray-300 hover:bg-gray-100 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700 -mx-1.5 -my-1.5 ml-auto inline-flex h-8 w-8 rounded-lg p-1.5 focus:ring-2"
-      data-dismiss-target="#toast-interactive"
+      className="-mx-2 -my-2 ml-auto h-fit w-fit rounded-full bg-transparent p-2 text-content-contrast transition-all hover:bg-layout-level1accent focus:ring-2"
       aria-label="Close"
       onClick={addHandler}
     >
       <span className="sr-only">Close</span>
-      <FiX className="h-5 w-5" />
+      <FiX className="h-4 w-4" />
     </button>
   )
 }

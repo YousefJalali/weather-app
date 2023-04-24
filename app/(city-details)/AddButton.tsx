@@ -7,7 +7,10 @@ import { FiBookmark } from 'react-icons/fi'
 function Button({ isAdded = false, ...props }) {
   const style = isAdded ? 'fill-utility-rating text-utility-rating' : ''
   return (
-    <button className="absolute top-0 right-0" {...props}>
+    <button
+      className="absolute top-0 right-0 -mr-3 -mt-3 rounded-full p-3 active:bg-layout-level0accent"
+      {...props}
+    >
       <FiBookmark className={`h-6 w-6 ${style}`} />
     </button>
   )

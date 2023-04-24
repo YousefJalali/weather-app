@@ -20,8 +20,11 @@ export function Modal({
       style={{ height }}
     >
       <div className="container relative mx-auto max-w-2xl">
-        <header className="mb-4 flex items-center justify-between text-2xl">
-          <a onClick={clearModal}>
+        <header className="mb-4 flex cursor-pointer items-center justify-between text-2xl">
+          <a
+            onClick={clearModal}
+            className="-mt-3 -ml-3 rounded-full p-3 active:bg-layout-level0accent"
+          >
             <FiArrowLeft />
           </a>
         </header>
