@@ -28,7 +28,10 @@ export default function SearchResult({
         })
 
         return (
-          <li key={city.recordid}>
+          <li
+            key={city.recordid}
+            className="cursor-pointer px-2 hover:bg-layout-level0accent active:bg-layout-level1accent"
+          >
             <CityDetailsModal city={undefined} queryPath={queryPath}>
               <span
                 className="block truncate py-4 text-content-nonessential"
