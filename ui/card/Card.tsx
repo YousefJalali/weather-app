@@ -53,7 +53,7 @@ export function Card({
   )) || <ClientSkeleton width={128} />
 
   return (
-    <div className="select-none rounded-xl border border-layout-level0accent bg-layout-level1 p-4 ease-in active:scale-95">
+    <div className="select-none rounded-xl  border-layout-level0accent bg-layout-level1 p-4 ease-in active:scale-95">
       {!city ? (
         <ClientSkeleton width={64} />
       ) : current || popular ? (
