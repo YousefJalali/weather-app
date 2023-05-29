@@ -1,8 +1,7 @@
 export default async function Head({ params }: { params: { city: string } }) {
   return (
     <>
-      {/* <title>city</title> */}
-      <title>{params.city}</title>
+      <title>{`${params.city} | Weather App`}</title>
     </>
   )
 }
