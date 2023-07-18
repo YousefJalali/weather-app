@@ -1,34 +1,42 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# WeatherNow
 
-## Getting Started
+<p style="text-align: center;"><img src="https://jalaliyousef.com/_next/image?url=%2FWeatherApp.png&w=3840&q=75" width="450"></p>
 
-First, run the development server:
+WeatherNow is a beautifully designed and user-friendly weather application. With WeatherNow, you can easily retrieve current weather data for any location. Stay informed about temperature, weather conditions, and explore additional features like saving favorite locations and viewing detailed forecasts. Experience the perfect blend of functionality and aesthetics with WeatherNow.
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Current Weather Data**: Enter a location and instantly retrieve accurate and up-to-date weather information.
+- **Temperature Display**: Stay informed about the current temperature in your desired location.
+- **Weather Conditions**: Get detailed information about the current weather conditions, including descriptions and visual indicators.
+- **Favorite Locations**: Save your frequently visited locations for quick and easy access to their weather data.
+- **Forecast Viewing**: Explore detailed weather forecasts to plan ahead and stay prepared.
+- **Intuitive Design**: Enjoy a visually appealing and user-friendly interface for a delightful weather browsing experience.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## Usage
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+1. Enter the location for which you want to check the weather in the search bar.
+2. Instantly view the current weather data, including temperature and weather conditions.
+3. Save your favorite locations by clicking the heart icon for easy access in the future.
+4. Explore detailed weather forecasts by clicking on the forecast button.
+5. Stay prepared and plan your activities accordingly with WeatherNow's reliable weather information.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Contributing
 
-## Learn More
+We welcome contributions to the Binder App! To contribute, please follow these steps:
 
-To learn more about Next.js, take a look at the following resources:
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix: git checkout -b my-feature
+3. Make the necessary changes and commit them: git commit -m "Add feature"
+4. Push your changes to your forked repository: git push origin my-feature
+5. Submit a pull request to the main repository.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Please ensure your code adheres to the app's coding conventions and includes appropriate documentation and tests.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Support
 
-## Deploy on Vercel
+If you encounter any issues or have any questions or suggestions, please open an issue in the GitHub repository.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Acknowledgments
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+I would like to extend my heartfelt thanks to designer [Pavankamal Pullabhotla](https://www.figma.com/@getuied) for inspiring the exceptional design of WeatherNow. The app's aesthetic appeal and user-friendly interface owe their inspiration to his remarkable work.
